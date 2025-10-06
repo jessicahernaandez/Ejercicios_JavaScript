@@ -1,0 +1,9 @@
+# Archivos JS/Node que no quieres subir
+node_modules/
+*.log
+*.tmp
+/dist/
+/build/
+.env
+# Si usas VS Code
+.vscode/
