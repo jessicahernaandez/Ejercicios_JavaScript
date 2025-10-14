@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Consumo de litros por kilómetro en el viaje: 
+        // Introduce los kilómetros realizados, la cantidad de litros 
+        // de combustible consumidos y calcula los litros por kilómetros 
+        // mostrando el resultado.
+
+        let mensaje = "Introduce los kilometros: ";
+        let respuestaKilometros = prompt(mensaje);
+
+        while(respuestaKilometros < 0 || isNaN(respuestaKilometros)) {
+            mensaje = "Introduce los kilometros: ";
+            respuestaKilometros = prompt(mensaje);
+        }
+
+        let mensaje2 = "Introduce la cantidad de litros consumidos";
+        let respuestaLitros = prompt(mensaje2);
+
+        while (respuestaLitros < 0 || isNaN(respuestaLitros)) {
+            mensaje2 = "Introduce la cantidad de litros consumidos";
+            respuestaLitros = prompt(mensaje2);
+        }
+
+        let litrosUtilizados = respuestaLitros / respuestaKilometros;
+
+        alert(`Los litros utilizados por kilometros han sido: ${litrosUtilizados}`);    
+
+    </script>
+</body>
+</html>

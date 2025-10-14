@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //Un programa que pida un número y diga si es par o impar.
+
+        let mensaje = "Introduce un número";
+        let respuesta = prompt(mensaje);
+
+        while(respuesta <= 0 || isNaN(respuesta)) {
+            mensaje = "Error. Introduce un número correcto: ";
+            respuesta = prompt(mensaje);
+        }
+
+        if(respuesta % 2 === 0) {
+            alert(`El numero que has introducido es PAR.`);
+        } else {
+            alert(`El numero que has introducido es IMPAR.`);
+        }
+
+    </script>
+</body>
+</html>

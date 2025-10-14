@@ -16,9 +16,11 @@ console.log(`Valor: ${contador}`);
 
 let num=0;
 while(num <=10) {
-    num++;
+    
     if(num%2 != 0) {
+        num++;
         continue;
-        console.log(`Valor: ${num}`);
     }
+    console.log(`Valor: ${num}`);
+    num++;
 }

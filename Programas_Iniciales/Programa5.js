@@ -22,7 +22,6 @@ while(respuestaUsuario.toUpperCase() != respuestaAdivina.toUpperCase()) {
     respuestaUsuario = prompt(mensajeUsuario);
 }
 
-
 alert('¡Felicidades, haz acertado!');
 
 
