@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Par o Impar</title>
 </head>
 <body>
     <script>
-        //Un programa que pida un número y diga si es par o impar.
+
+        // Un programa que pida un número y diga si es par o impar.
 
         let mensaje = "Introduce un número";
-        let respuesta = prompt(mensaje);
+        let numUsuario = parseInt(prompt(mensaje));
 
-        while(respuesta <= 0 || isNaN(respuesta)) {
+        while(numUsuario <= 0 || isNaN(numUsuario)) {
             mensaje = "Error. Introduce un número correcto: ";
-            respuesta = prompt(mensaje);
+            numUsuario = parseInt(prompt(mensaje));
         }
 
-        if(respuesta % 2 === 0) {
-            alert(`El numero que has introducido es PAR.`);
+        if(numUsuario % 2 === 0) {
+            alert(`El numero que has introducido (${numUsuario}) es PAR.`);
         } else {
-            alert(`El numero que has introducido es IMPAR.`);
+            alert(`El numero que has introducido (${numUsuario}) es IMPAR.`);
         }
 
     </script>

@@ -3,26 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Conversor de temperaturas</title>
 </head>
 <body>
     <script>
-        //Conversor de temperatura -> Centígrados a Kelvin y Fahrenheit.
+        
+        // Conversor de temperatura -> Centígrados a Kelvin y Fahrenheit.
 
         let mensaje = "Introduce la temperatura en Centígrados: ";
-        let respuesta = prompt(mensaje);
+        let temperatura = parseFloat(prompt(mensaje));
 
-        while(isNaN(respuesta)) {
+        while(isNaN(temperatura) || temperatura < 0) {
             mensaje = "Introduce temperatura valida: ";
-            respuesta = prompt(mensaje);
+            temperatura = parseFloat(prompt(mensaje));
         }
 
-        let Kelvin = respuesta + 273.15;
-        let Fahrenheit = (respuesta * 9/5) + 32;
+        let Kelvin = temperatura + 273.15;
+        let Fahrenheit = (temperatura * 9/5) + 32;
 
-        alert(`${respuesta} centigrados a Kelvin y Fahrenheit:
-        -> Kelvin: ${Kelvin}
-        -> Fahrenheit: ${Fahrenheit}`);
+        alert(`${temperatura} centigrados a Kelvin y Fahrenheit:\n -> Kelvin: ${Kelvin.toFixed(2)}\n -> Fahrenheit: ${Fahrenheit.toFixed(2)}`);
     </script>
 </body>
 </html>

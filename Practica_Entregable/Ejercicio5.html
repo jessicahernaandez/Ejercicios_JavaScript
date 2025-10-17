@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Intercambio de variables</title>
 </head>
 <body>
     <script>
@@ -13,16 +13,32 @@
         // luego los intercambie y muestre dicho cambio.
 
         let mensaje = "Introduce un dato: ";
-        let respuesta = prompt(mensaje);
+        let valorUno = prompt(mensaje);
+
+        while(valorUno === null || valorUno === "") {
+            mensaje = "Error. Introduce un dato válido: ";
+            valorUno = prompt(mensaje);
+        }
 
         let mensaje2 = "Introduce un segundo dato: ";
-        let respuesta2 = prompt(mensaje2);
+        let valorDos = prompt(mensaje2);
 
-        let variable1 = respuesta;
-        let variable2 = respuesta2;
+        while(valorDos === null || valorDos === "") {
+            mensaje2 = "Error. Introduce un segundo dato: ";
+            valorDos = prompt(mensaje2);
+        }
 
-        alert(`Valor de variable1 = ${variable1}
-Valor de variable2 = ${variable2}`);
+
+        let variable1 = valorUno;
+        let variable2 = valorDos;
+
+        alert(`Valores originales\nValor de variable 1 = ${variable1}\nValor de variable2 = ${variable2}`);
+
+        let temp = variable1;
+        variable1 = variable2;
+        variable2 = temp;
+
+        alert(`Valores intercambiados\nValor de la variable 1 = ${variable1}\nValor de la variable 2 = ${variable2}`);
 
     </script>
 </body>

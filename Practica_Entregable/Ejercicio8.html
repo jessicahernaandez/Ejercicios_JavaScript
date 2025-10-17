@@ -3,30 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Máximo y Mínimo</title>
 </head>
 <body>
     <script>
-        //Máximo y Mínimo: Pide al usuario varios números (hasta que ingrese -1) y encuentra el máximo y mínimo.
+       
+       // Máximo y Mínimo: Pide al usuario varios números (hasta que ingrese -1) 
+       // y encuentra el máximo y mínimo.
         
-        let mensaje = "";
-        let respuesta = 0;
-        let menor = 100;
-        let mayor = 0;
+        let mensaje = "Introduce números (-1 para terminar): ";
+        let numero = parseFloat(prompt(mensaje));
 
-        while (respuesta != -1) {
-            mensaje = "Introduce numeros (-1 para terminar)";
-            respuesta = prompt(mensaje);
-
-            if (respuesta < menor) {
-                menor = respuesta;
-            } else {
-                mayor = respuesta;
-            }
+        while(isNaN(numero)) {
+            mensaje = "Error. Introduce un número valido (-1 para terminar): ";
+            numero = parseFloat(prompt(mensaje));
         }
 
-        alert(`El menor número ingresado fue: ${menor}
-El mayor número ingresado fue ${mayor}`);
+        //Inicialmente, tenemos el primer número como max y min.
+        let menor = numero;
+        let mayor = numero;
+
+        do {
+            mensaje = "Introduce el siguiente número (-1 para terminar): ";
+            numero = parseFloat(prompt(mensaje)); 
+
+            //Validamos
+            while(isNaN(numero)) {
+                mensaje = "Error. Introduce un número válido (-1 para terminar): ";
+                numero = parseFloat(prompt(mensaje));
+            }
+            
+            //Para que no se guarde el -1 como menor.
+            if(numero !== -1) {
+                if(numero < menor) {
+                    menor = numero;
+                } 
+
+                if(numero > mayor) {
+                    mayor = numero;
+                }
+            }
+
+        } while (numero !== -1);
+
+        // Mostrar resultado final
+        alert(`El menor número ingresado fue: ${menor}\nEl mayor número ingresado fue: ${mayor}`);
 
 
     </script>

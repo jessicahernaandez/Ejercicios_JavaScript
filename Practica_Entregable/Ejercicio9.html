@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numeros Perfectos</title>
+</head>
+<body>
+    <script>
+
+        // Números Perfectos: Pide al usuario un número 
+        // y determina si es un número perfecto 
+        // (igual a la suma de sus divisores). Ejemplo 6: 1+2+3=6
+
+        let mensaje = "Introduce un número (mayor a 1): ";
+        let numeroUsuario = parseInt(prompt(mensaje));
+
+        while(isNaN(numeroUsuario) || numeroUsuario <= 1) {
+            mensaje = "Error. Introduce un número mayor que 1: ";
+            numeroUsuario = parseInt(prompt(mensaje));
+        }
+
+        let sumaDivisores = 0;
+        let numeros = "";  //String para concatenar divisores
+
+        for(let i = 1; i < numeroUsuario; i++) {
+            if(numeroUsuario % i === 0) {
+                numeros += i + " ";
+                sumaDivisores += i;
+            }
+        }
+
+        if(sumaDivisores === numeroUsuario) {
+            alert(`El número ${numeroUsuario} es PERFECTO\nDivisores: ${numeros}\nSuma de divisores: ${sumaDivisores}.`);
+        } else {
+            alert(`El número ${numeroUsuario} NO es perfecto\nDivisores: ${numeros}\nSuma de divisores: ${sumaDivisores}.`);
+        }
+
+
+    </script>   
+</body>
+</html>

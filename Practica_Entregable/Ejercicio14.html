@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numeros de Fibonacci</title>
+</head>
+<body>
+    <script>
+
+        // Números de Fibonacci en un rango: 
+        // Pide al usuario dos números y muestra todos los números 
+        // de Fibonacci que caen dentro de ese rango.
+
+        let mensaje = "¡Números de Fibonacci!\nIntroduce un rango mínimo: ";
+        let rangoMin = parseInt(prompt(mensaje));
+
+        while(isNaN(rangoMin) || rangoMin < 0) {
+            mensaje = "¡Números de Fibonacci!\nError.Introduce un rango mínimo mayor a 0: ";
+            rangoMin = parseInt(prompt(mensaje));
+        }
+
+        let mensaje2 = "¡Números de Fibonacci!\nIntroduce un rango máximo: ";
+        let rangoMax = parseInt(prompt(mensaje2));
+
+        while(isNaN(rangoMax) || rangoMax < 0 || rangoMax < rangoMin) {
+            mensaje2 = "¡Números de Fibonacci!\nError. Introduce un numero entero, mayor al rango minimo: ";
+            rangoMax = parseInt(prompt(mensaje2));
+        }
+
+        let fibo1 = 0;
+        let fibo2 = 1;
+        let fibonacci = "";
+
+        while(fibo1 <= rangoMax) {
+            if(fibo1 >= rangoMin && fibo1 <= rangoMax) {
+                fibonacci += fibo1 + ", ";
+            }
+
+            let siguiente = fibo1 + fibo2;
+            fibo1 = fibo2;
+            fibo2 = siguiente;
+        }
+
+        alert(`Numeros de Fibonacci encontrados en el rango [${rangoMin}, ${rangoMax}]: ${fibonacci}`);
+
+    </script>
+</body>
+</html>

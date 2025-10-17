@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcular la media</title>
+</head>
+<body>
+    <script>
+
+        // Ingresar Números y Calcular Media: Pide al usuario varios números (hasta que ingrese -1) 
+        // y calcula la media.
+
+        let sumaNumeros = 0;
+        let cantidad = 0;
+        let mensaje = "";
+        let numeros = 0;
+        let numIngresados = "";
+
+        do {
+            mensaje = "Introduce un número: (-1 para terminar): ";
+            numeros = parseFloat(prompt(mensaje)); 
+
+            while(isNaN(numeros) && numeros !== -1) {
+                mensaje = "Error. Introduce un número valido: (-1 para terminar): ";
+                numeros = parseFloat(prompt(mensaje));
+            }
+
+            if(numeros !== -1) {
+                sumaNumeros += numeros;
+                cantidad++;
+                numIngresados += numeros.toString() + ", ";
+            }
+
+        } while(numeros !== -1);
+
+        let media = sumaNumeros / cantidad;
+
+        if(cantidad > 0) {
+            alert(`La media de los numeros: ${numIngresados} es: ${media.toFixed(2)}`);
+        } else {
+            alert(`No se ingresaron números`);
+        }
+
+    </script>
+</body>
+</html>
