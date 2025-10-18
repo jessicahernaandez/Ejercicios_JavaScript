@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palabras Palíndromas</title>
+</head>
+<body>
+    <script>
+        // Palíndromo: Pide al usuario una palabra y determina si es un palíndromo 
+        // (se lee igual de izquierda a derecha que de derecha a izquierda).
+
+        let mensaje = "¿Es Palíndroma?\nIntroduce una palabra: ";
+        let palabraUsuario = prompt(mensaje).toLowerCase(); //pasamos a minuscula.
+
+        while(palabraUsuario === null || palabraUsuario === "" || !esPalabraValida(palabraUsuario)) {
+            mensaje = "¿Es Palíndroma?\nError. Introduce una palabra: ";
+            palabraUsuario = prompt(mensaje).toLowerCase();
+        }
+
+        //Para asegurarme que es una palabra y no numeros, convertidos en String.
+        function esPalabraValida (palabraUsuario) {
+            let esPalabra = true;
+
+            for(let i=0;i<palabraUsuario.length;i++) {
+                let char = palabraUsuario[i];
+                if(!((char >= 'a' && char <= 'z') || char === ' ')) {
+                    esPalabra = false;
+                }
+            }
+
+            return esPalabra;
+        }
+
+        let invertida = "";
+        for(let i = 0; i<palabraUsuario.length;i++) {
+            invertida = palabraUsuario[i] + invertida;
+        }
+
+        let mensaje2 = `Tu palabra ${palabraUsuario}`;
+        if(invertida === palabraUsuario) {
+            alert(`${mensaje2} es Palíndroma.\n${palabraUsuario} = ${invertida}`);
+        } else {
+            alert(`${mensaje2} no es Palíndroma.\n${palabraUsuario} = ${invertida}`);
+        }
+
+    </script>
+</body>
+</html>

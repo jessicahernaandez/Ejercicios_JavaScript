@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suma de Serie de Fibonacci</title>
+</head>
+<body>
+    <script>
+        // Sumar la Serie de Fibonacci: Pide al usuario un número y 
+        // suma todos los números de la serie de Fibonacci hasta ese número.
+
+        let mensaje = "¡Suma de Fibonacci!\nIntroduce un nñumero entero positivo: ";
+        let numLimite = parseInt(prompt(mensaje));
+
+        while(isNaN(numLimite) || numLimite < 0) {
+            mensaje = "¡Suma de Fibonacci!\nError. Introduce un nñumero entero positivo: ";
+            numLimite = parseInt(prompt(mensaje));
+        }
+
+        let fibo1 = 0;
+        let fibo2 = 1;
+        let sumaFibo = 0;
+        let numFibo = "";
+
+        if(numLimite >= 0) {
+            sumaFibo += fibo1;
+            numFibo += fibo1;
+        }
+
+        while(fibo2 <= numLimite) {
+            sumaFibo += fibo2;
+            numFibo += " + " + fibo2;
+            let siguiente = fibo1 + fibo2;
+            fibo1 = fibo2;
+            fibo2 = siguiente;
+        }
+
+        alert(`Suma de Fibonacci hasta ${numLimite}: ${numFibo} = ${sumaFibo}`);
+
+    </script>
+</body>
+</html>

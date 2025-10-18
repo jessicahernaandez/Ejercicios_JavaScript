@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Generador de Números Aleatorios: Genera y muestra 5 números aleatorios entre 1 y 50.
+        // (Usar la librería Math)
+
+        let numerosAleatorios = "";
+
+        for(let i = 0; i < 5; i++) {
+            let numAleatorio = Math.floor(Math.random() * 50) + 1;
+
+            if(i < 4) {
+                numerosAleatorios += numAleatorio + ", ";
+            } else {
+                numerosAleatorios += numAleatorio;
+            }
+        }
+
+        alert(`5 numeros aleatorios entre 1 y 50:\n${numerosAleatorios}`);
+
+    </script>
+</body>
+</html>

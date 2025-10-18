@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tablas de multiplicar</title>
+</head>
+<body>
+    <script>
+
+        // Tablas de Multiplicar: Pide al usuario un número y 
+        // muestra la tabla de multiplicar de ese número.
+
+        let mensaje = "¡Tablas de multiplicar!\n¿Que tabla necesitas?: ";
+        let numTabla = parseInt(prompt(mensaje));
+
+        while(isNaN(numTabla) || numTabla < 0) {
+            mensaje = "¡Tablas de multiplicar!\nError. Introduce un número valido: ";
+            numTabla = parseInt(prompt(mensaje));
+        }
+
+        let tabla = "";
+        for(let i = 1; i <= 10; i++) {
+            let multiplicacion = numTabla * i;
+            tabla += numTabla + " * " + i + " = " + multiplicacion + "\n";
+        }
+
+        alert(`Tabla de multiplicar de ${numTabla}:\n${tabla}`);
+
+    </script>
+</body>
+</html>

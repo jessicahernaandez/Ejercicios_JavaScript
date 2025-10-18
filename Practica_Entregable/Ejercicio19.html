@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suma Pares</title>
+</head>
+<body>
+    <script>
+
+        // Sumar Números Pares: Pide al usuario un número y suma todos los números pares 
+        // desde 1 hasta ese número.
+
+        let mensaje = "¡Suma de Pares!\nIntroduce un número entero: ";
+        let numUsuario = parseInt(prompt(mensaje));
+
+        while(isNaN(numUsuario) || numUsuario < 0) {
+            mensaje = "¡Suma de Pares!\nError. Introduce un número entero: ";
+            numUsuario = parseInt(prompt(mensaje));
+        }
+
+        let sumaPares = 0;
+        let numPares = "";
+        let contadorPares = 0;
+        for(let i = 0; i <= numUsuario; i++) {
+            if (i % 2 === 0) {
+                sumaPares += i;
+                
+                if(contadorPares > 0) {
+                    numPares += " + "; //Asi solo agregamos el signo '+' antes del numero.
+                }
+
+                numPares += i;
+                contadorPares++;
+            }
+        }
+
+        alert(`La suma de todos los numeros pares hasta el numero ${numUsuario} es:\n${numPares} = ${sumaPares}`);
+
+    </script>
+</body>
+</html>

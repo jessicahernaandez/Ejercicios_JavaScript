@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operaciones Aritmeticas</title>
+</head>
+<body>
+    <script>
+
+        // Calculadora Básica: Crea una pequeña calculadora que pida dos números 
+        // y el tipo de operación (suma, resta, multiplicación o división) y muestra el resultado.
+
+        let mensaje = "Introduce un numero entero: ";
+        let num1 = parseInt(prompt(mensaje));
+
+        while(isNaN(num1) || num1 < 0) {
+            mensaje = "Error. Introduce un numero entero: ";
+            num1 = parseInt(prompt(mensaje));
+        }
+
+        let mensaje2 = "Introduce otro numero entero: ";
+        let num2 = parseInt(prompt(mensaje2));
+
+        while(isNaN(num2) || num2 < 0) {
+            mensaje2 = "Error. Introduce otro numero entero: ";
+            num2 = parseInt(prompt(mensaje2));
+        }
+
+        let mensaje3 = "¿Qué operacion deseas realizar?\n1.Suma\n2.Resta\n3.Multiplicacion\n4.Division\nIntroduce el numero correspondiente a la operación que deseas.";
+        let operacion = parseInt(prompt(mensaje3));
+
+        while(isNaN(operacion) || (operacion < 1 && operacion > 4)) {
+            mensaje3 = "Error. Introduce una opcion valida:\n1.Suma\n2.Resta\n3.Multiplicacion\n4.Division";
+            operacion = parseInt(prompt(mensaje3));
+        }
+
+        let resultado = 0;
+        let operacionElegida = "";
+        switch(operacion) {
+            case 1:
+                resultado = num1 + num2;
+                operacionElegida = "suma";
+                break;
+            
+            case 2:
+                resultado = num1 - num2;
+                operacionElegida = "resta";
+                break;
+
+            case 3:
+                resultado = num1 * num2;
+                operacionElegida = "multiplicacion";
+                break;
+
+            case 4:
+                resultado = num1 / num2;
+                operacionElegida = "division";
+                break;
+        }
+
+        alert(`El resultado de la ${operacionElegida} entre ${num1} y ${num2} es: ${resultado}`);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de Nota de Examen</title>
+</head>
+<body>
+    <script>
+
+        // Dos errores anulan una respuesta correcta. 
+        // (nota = ((num_aciertos - (num_errores/2))*10)/num_preguntas). 
+        // Finalmente, se muestra por pantalla la nota obtenida, 
+        // así como su calificación no numérica 
+        // (INSUFICIENTE (menos de 5), SUFICIENTE (5 y menos de 6), 
+        // BIEN (6 y menos de 7), NOTABLE (7 y menos de 9), SOBRESALIENTE (de 9 a 10)).
+
+        let mensaje = "Introduce el número total de preguntas: ";
+        let totalPreguntas = parseInt(prompt(mensaje));
+
+        while (isNaN(totalPreguntas) || totalPreguntas <= 0) {
+            mensaje = "Error. Introduce un número entero positivo válido: ";
+            totalPreguntas = parseInt(prompt(mensaje));
+        }
+
+        let mensaje2 = "Introduce el número de aciertos: ";
+        let aciertos = parseInt(prompt(mensaje2));
+
+        while (isNaN(aciertos) || aciertos < 0 || aciertos > totalPreguntas) {
+            mensaje2 = "Error. Introduce un número válido (0 a " + totalPreguntas + "): ";
+            aciertos = parseInt(prompt(mensaje2));
+        }
+
+        let mensaje3 = "Introduce el número de errores: ";
+        let errores = parseInt(prompt(mensaje3));
+
+        while (isNaN(errores) || errores < 0 || errores > (totalPreguntas - aciertos)) {
+            mensaje3 = "Error. Introduce un número válido (0 a " + (totalPreguntas - aciertos) + "): ";
+            errores = parseInt(prompt(mensaje3));
+        }
+
+        // Calcular nota
+        let nota = ((aciertos - (errores / 2)) * 10) / totalPreguntas;
+
+        // Determinar calificación cualitativa
+        let calificacion;
+        if (nota < 5) {
+            calificacion = "INSUFICIENTE";
+        } else if (nota < 6) {
+            calificacion = "SUFICIENTE";
+        } else if (nota < 7) {
+            calificacion = "BIEN";
+        } else if (nota < 9) {
+            calificacion = "NOTABLE";
+        } else {
+            calificacion = "SOBRESALIENTE";
+        }
+
+        // Alert con desglose
+        alert(`Desglose del examen:\nTotal preguntas: ${totalPreguntas}\nAciertos: ${aciertos}\nErrores: ${errores}\n\nNota numérica: ${nota.toFixed(2)}\nCalificación: ${calificacion}`);
+
+    </script>
+</body>
+</html>

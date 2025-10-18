@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcular Potencias</title>
+</head>
+<body>
+    <script>
+
+        // 6. Potencias de X: Muestra las potencias de X desde X^0 hasta X^n para un X 
+        // y un n ingresados por el usuario.
+
+        let mensaje = "¡Calcular Potencias!\nIntroduce el valor de X (número mayor a 0): ";
+        let valorX = parseInt(prompt(mensaje));
+
+        while(isNaN(valorX) || valorX < 0) {
+            mensaje = "¡Calcular Potencias!\nError. Introduce un número mayor a 0: ";
+            valorX = parseInt(prompt(mensaje));
+        }
+
+        let mensaje2 = "¡Calcular Potencias!\nIntroduce su maxima potencia: ";
+        let potenciaMax = parseInt(prompt(mensaje2));
+
+        while(isNaN(potenciaMax) || potenciaMax < 0) {
+            mensaje2 = "¡Calcular Potencias!\nError. Introduce otro numero entero: ";
+            potenciaMax = parseInt(prompt(mensaje2));
+        }
+
+        let potencias = "";
+        for(let i = 0; i <= potenciaMax; i++) {
+            let potencia = valorX ** i;
+            if(i < potenciaMax) {
+                potencias += potencia + ", ";
+            } else {
+                potencias += potencia;
+            }
+        }
+
+        alert(`Potencias de ${valorX} desde ${valorX}^0 hasta ${valorX}^${potenciaMax}:\n${potencias}`);
+
+    </script>
+</body>
+</html>
