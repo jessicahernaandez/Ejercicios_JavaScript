@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        let mensajeUsuario = "¡Juego de Dados!\n¿Con que tipo de dado vas a jugar (4-20 -> numero Par)?";
+        let tipoDado = parseInt(prompt(mensajeUsuario));
+
+        while(isNaN(tipoDado) || tipoDado < 4 || tipoDado > 20 || tipoDado % 2 != 0) {
+            mensajeUsuario = "¡Juego de Dados!\nError, introduce un número correcto (4-20 -> numero Par)";
+            tipoDado = parseInt(prompt(mensajeUsuario));
+        }
+
+        let mensajeUsuario2 = "¡Juego de Dados!\n¿Cuantas rondas van a jugar?";
+        let rondas = parseInt(prompt(mensajeUsuario2));
+
+        while(isNaN(rondas) || rondas < 0) {
+            mensajeUsuario2 = "¡Juego de Dados!\nError, Introduce un número correcto.";
+            rondas = parseInt(prompt(mensajeUsuario2));
+        }
+
+        let mensajeUsuario3 = "¡Juego de Dados!\n¿Cuantos dados se tiraran por jugador (min=1, max=4)?";
+        let cuantosDados = parseInt(prompt(mensajeUsuario3));
+
+        while(isNaN(cuantosDados) || cuantosDados < 1 || cuantosDados > 4) {
+            mensajeUsuario2 = "¡Juego de Dados!\nError, Introduce un número correcto.(min=1, max=4)";
+            rondas = parseInt(prompt(mensajeUsuario2));
+        }
+
+        function resultadoDado (tipoDado) {
+            let resultado = Math.floor(Math.random() * tipoDado) + 1;
+            
+            return resultado;
+        }
+
+        while(rondas != 0) {
+            while(cuantosDados != 0) {
+                alert(`Resultado de dado: ${resultadoDado(tipoDado)}`);
+                cuantosDados--;
+            }
+            rondas--;
+        }
+
+
+
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let mapa = new Map([["codigo1", 288227],["codigo2", 256],["codigo3", 6543],["codigo4",256787],["codigo5", 123457]]);
+
+        console.log(mapa);
+
+        function eliminarNoValidos (mapa) {
+
+            for(let [clave, valor] of mapa) {
+                let numString = valor.toString();
+                if(numString.length < 6) {
+                    mapa.delete(clave);
+                }
+                console.log(numString.length);
+            }
+        }
+
+        eliminarNoValidos(mapa);
+
+        console.log(mapa);
+
+
+    </script>
+</body>
+</html>
