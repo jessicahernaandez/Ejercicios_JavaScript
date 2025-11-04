@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obtener Subcadena</title>
+</head>
+<body>
+    <script>
+        // Obtener Subcadena: Pide al usuario una cadena y dos índices, 
+        // y muestra la subcadena entre esos índices.
+
+        let mensaje = "Introduce una palabra: ";
+        let palabraUsuario = prompt(mensaje).toLowerCase();
+
+        while(palabraUsuario === null || palabraUsuario === ' ' || !esPalabraValida(palabraUsuario)) {
+            mensaje = "Error. Introduce una palabra válida: ";
+            palabraUsuario = prompt(mensaje).toLowerCase();
+        }
+
+        //La funcion que valida si es palabra.
+        function esPalabraValida (palabraUsuario) {
+            
+            for(let i=0;i<palabraUsuario.length;i++) {
+                let char = palabraUsuario.charAt(i);
+
+                if(!((char >= 'a' && char <= 'z') || char === ' ')) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        let mensaje2 = "Introduce el primer índice: ";
+        let primerIndice = parseInt(prompt(mensaje2));
+
+        while(isNaN(primerIndice) || primerIndice < 0 || primerIndice > palabraUsuario.length) {
+            mensaje2 = "Error. Introduce un número entero válido: ";
+            primerIndice = parseInt(prompt(mensaje2));
+        }
+
+        let mensaje3 = "Introduce el segundo índice: ";
+        let segundoIndice = parseInt(prompt(mensaje3));
+
+        while(isNaN(segundoIndice) || segundoIndice < 0 || segundoIndice <= primerIndice || segundoIndice > palabraUsuario.length) {
+            mensaje3 = "Error. Introduce otro número entero válido: ";
+            segundoIndice = parseInt(prompt(mensaje3));
+        }
+
+        let subcadena = palabraUsuario.substring(primerIndice, segundoIndice);
+
+        alert(`El substring de la palabra ${palabraUsuario}, desde la posicion ${primerIndice} hasta la posicion ${segundoIndice} es:\n${subcadena}`)
+
+
+    </script>
+</body>
+</html>

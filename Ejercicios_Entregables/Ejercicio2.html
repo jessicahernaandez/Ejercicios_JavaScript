@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área de Triángulo</title>
+</head>
+<body>
+    <script>
+
+        // Cálculo del área del triángulo: 
+        // el usuario tendrá que introducir los datos necesarios 
+        // para poder calcular el área en base a la fórmula tradicional.
+
+        let mensaje = "¡Calcular el área del triángulo! \n Introduce la base: ";
+        let baseTriangulo = parseFloat(prompt(mensaje));
+
+        while (isNaN(baseTriangulo) || baseTriangulo < 0) {
+            mensaje = "¡Calcular el área del triángulo! \n Error. Introduce una base válida: ";
+            baseTriangulo = parseFloat(prompt(mensaje));
+        }
+
+        let mensaje2 = "Calcular el área del triángulo! \n Introduce la altura: ";
+        let alturaTriangulo = parseFloat(prompt(mensaje2));
+
+        while (isNaN(alturaTriangulo) || alturaTriangulo < 0) {
+            mensaje2 = "Calcular el área del triángulo! \n Error. Introduce una altura válida: ";
+            alturaTriangulo = parseFloat(prompt(mensaje2));
+        }
+
+        let areaTriangulo = (baseTriangulo * alturaTriangulo) / 2;
+
+        alert(`El área del triángulo es: ${areaTriangulo} cm2`);
+
+    </script>
+</body>
+</html>

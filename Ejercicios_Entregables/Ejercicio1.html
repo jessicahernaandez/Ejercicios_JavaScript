@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcular IVA</title>
+</head>
+<body>
+    <script>
+        // Cálculo de precio con IVA: el usuario introduce una cantidad a pagar, 
+        // después introduce el IVA a aplicar y finalmente muestra el precio desglosado: 
+        // precio total (X cantidad al aplicar el IVA).
+
+        let mensajeUsuario = "Introduce el precio a calcular: ";
+        let precioUsuario = parseFloat(prompt(mensajeUsuario));
+
+        while(isNaN(precioUsuario) || precioUsuario < 0) {
+            mensajeUsuario = "Error. Introduce un número valido.";
+            precioUsuario = parseFloat(prompt(mensajeUsuario));
+        }
+
+        const tasaIVA = 0.21;
+        let montoIVA = precioUsuario * tasaIVA;
+        let precioTotalIVA = precioUsuario + montoIVA;
+
+        alert(`Precio: ${precioUsuario} \nPrecio total con IVA: ${precioTotalIVA}€`);
+
+    </script>
+</body>
+</html>

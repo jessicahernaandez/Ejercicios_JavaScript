@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuenta Regresiva Personalizada</title>
+</head>
+<body>
+    <script>
+
+        // Cuenta Regresiva Personalizada: Pide al usuario un número y 
+        // un intervalo (por ejemplo, 2) y muestra una cuenta regresiva 
+        // usando ese intervalo. Ejem: 10 --> 10 - 8 - 6 - 4 - 2 - 0
+
+        let mensaje = "¡Cuenta Regresiva Personalizada!\nIntroduce un número entero: ";
+        let numero = parseInt(prompt(mensaje));
+
+        while(isNaN(numero) || numero < 0) {
+            mensaje = "¡Cuenta Regresiva Personalizada!\nError. Introduce un número entero positivo: ";
+            numero = parseInt(prompt(mensaje));
+        }
+
+        let mensaje2 = "¡Cuenta Regresiva Personalizada!\nIntroduce el intervalo: ";
+        let intervalo = parseInt(prompt(mensaje2));
+
+        while(isNaN(intervalo) || intervalo < 0) {
+            mensaje2 = "¡Cuenta Regresiva Personalizada!\nError. Introduce un número entero positivo: ";
+            intervalo = parseInt(prompt(mensaje2));
+        }
+
+        let cuentaRegresiva = "";
+        let i = numero;  
+        while (i >= 0) {
+            if (cuentaRegresiva !== "") {  
+                cuentaRegresiva += " - ";
+            }
+            cuentaRegresiva += i;  
+            i -= intervalo;  
+        }
+
+        alert(`Cuenta Regresiva desde ${numero}:\n${cuentaRegresiva}`);
+
+    </script>
+</body>
+</html>

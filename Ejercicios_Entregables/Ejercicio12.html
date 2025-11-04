@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suma de digitos</title>
+</head>
+<body>
+    <script>
+
+        // Escribe un programa que calcule la suma de los dígitos 
+        // de un número entero ingresado por el usuario. 
+        // Ejemplo: 4768 --> 4+7+6+8 = 25
+
+        let mensaje = "Introduce un número entero: ";
+        let numeroEntero = parseInt(prompt(mensaje));
+
+        while(isNaN(numeroEntero) || numeroEntero < 0) {
+            mensaje = "Error. Introduce un número entero: ";
+            numeroEntero = parseInt(prompt(mensaje));
+        }
+
+        let numeroString = numeroEntero.toString();
+        let digitos = "";
+        let suma = 0;
+
+        for(let i = 0; i < numeroString.length; i++) {
+            let digito = parseInt(numeroString[i]);
+            suma += digito;
+
+            if(i < numeroString.length - 1) {
+                digitos += digito + " + ";
+            } else {
+                digitos += digito;
+            }
+        }
+
+        alert(`La suma de digitos de ${numeroEntero} es:\n${digitos} = ${suma}`);
+
+    </script>
+</body>
+</html>

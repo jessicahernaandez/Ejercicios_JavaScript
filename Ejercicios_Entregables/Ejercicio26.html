@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adivina el número</title>
+</head>
+<body>
+    <script>
+
+        // Adivina el Número: genera un número aleatorio entre 1 y 100 
+        // y pide al usuario que lo adivine.
+
+        let adivinar = Math.floor(Math.random() * 100) + 1;
+
+        let mensaje = "¡Adivina el número!\nIntroduce un número entre 1 y 100:";
+        let numUsuario = parseInt(prompt(mensaje));
+
+        while(isNaN(numUsuario) || numUsuario > 100 || numUsuario < 1) {
+            mensaje = "¡Adivina el número!\nError. Introduce un número válido entre 1 y 100:";
+            numUsuario = parseInt(prompt(mensaje));
+        }
+
+        while(numUsuario !== adivinar) {
+            if(numUsuario < adivinar) {
+                mensaje = "¡Adivina el número!\nNo, es mayor. Sigue Intentandolo 😎:";
+            } else {
+                mensaje = "¡Adivina el número!\nNo, es menor. Sigue Intentandolo 😎:";
+            }
+
+            numUsuario = parseInt(prompt(mensaje));
+
+            //Volvemos a validar
+            while (isNaN(numUsuario) || numUsuario > 100 || numUsuario < 1) {
+                mensaje = "¡Adivina el número!\nError. Introduce un número válido entre 1 y 100:";
+                numUsuario = parseInt(prompt(mensaje));
+            }
+        }
+
+        
+        alert(`¡Felicidades! 🥳, Lo has adivinado. El número era ${numUsuario}`);
+
+    </script>
+</body>
+</html>

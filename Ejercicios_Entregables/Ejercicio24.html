@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuenta vocales y consonantes</title>
+</head>
+<body>
+    <script>
+
+        // Contar Vocales y consonantes: Pide al usuario una cadena y 
+        // cuenta cuántas vocales tiene (incluidas vocales con tilde) 
+        // y cuantas consonantes.
+
+        let mensaje = "Introduce una cadena de texto: ";
+        let cadenaUsuario = prompt(mensaje).toLowerCase();
+
+        while(cadenaUsuario === null || cadenaUsuario === "" || !esCadenaValida(cadenaUsuario)) {
+            mensaje = "Error. Introduce una cadena de texto válida: ";
+            cadenaUsuario = prompt(mensaje).toLowerCase();
+        }
+
+        //Funcion para saber si es cadena y no numeros en string.
+        function esCadenaValida (cadenaUsuario) {
+
+            for(let i=0;i<cadenaUsuario.length;i++) {
+                let char = cadenaUsuario.charAt(i);
+
+                if(!((char >= 'a' && char <= 'z') || char === ' ')) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        let ArrVocales = ['a', 'e', 'i', 'o', 'u', 'á', 'é', 'í', 'ó', 'ú'];
+        let consonantes = 0;
+        let vocales = 0;
+
+        for(let i = 0; i < cadenaUsuario.length;i++) {
+            let charUsu = cadenaUsuario[i];
+            
+            if(charUsu !== ' ') {
+                let esVocal = false;
+
+                for(let j=0;j<ArrVocales.length;j++) {
+                    if (charUsu === ArrVocales[j]) {
+                        esVocal = true;
+                    }
+                }
+
+                if (esVocal) {
+                    vocales++;
+                } else {
+                    consonantes++;
+                }
+            }
+        }
+
+        alert(`En "${cadenaUsuario}":\nVocales: ${vocales}\nConsonantes: ${consonantes}\nTotal letras: ${vocales + consonantes}`);
+
+    </script>
+</body>
+</html>

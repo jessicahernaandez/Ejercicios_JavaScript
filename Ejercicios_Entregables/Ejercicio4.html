@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receta</title>
+</head>
+<body>
+    <script>
+        
+        // Una receta. Que diga la cantidad de ingredientes por persona. 
+        // Luego pida el número de comensales y la cantidad de cada ingrediente que se necesita comprar en total.
+        
+        alert(`¡Receta para realizar pupusas!\nNecesitamos (por persona) \n* Harina -> 0.5 tazas\n* Queso -> 0.25 tazas\n* Frijoles -> 0.5 tazas\n* Chicharron -> 0.25 libras`); 
+
+        let mensaje = "Introduce la cantidad de comensales: ";
+        let comensales = parseFloat(prompt(mensaje));
+
+        while (comensales <= 0 || isNaN(comensales)) {
+            mensaje = "Error. Introduce una cantidad valida: ";
+            comensales = parseFloat(prompt(mensaje));
+        }
+
+        $intHarina = 0.5 * comensales;
+        $intQueso = 0.25 * comensales;
+        $intFrijoles = 0.5 * comensales;
+        $intChicharron = 0.25 * comensales;
+
+        alert(`Para ${comensales} comensales, necesitas:\n* ${$intHarina.toFixed(2)} tazas de Harina.\n* ${$intQueso.toFixed(2)} tazas de Queso.\n* ${$intFrijoles.toFixed(2)} tazas de Frijoles.\n* ${$intChicharron.toFixed(2)} libras de Chicharron.`);
+    
+    
+    </script>
+</body>
+</html>

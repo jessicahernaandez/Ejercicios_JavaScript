@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de monedas</title>
+</head>
+<body>
+    <script>
+
+        // Conversor de moneda -> de Euro a Dólar y Yenes.
+
+        let mensaje = "Introduce la cantidad en euros: ";
+        let euros = parseFloat(prompt(mensaje));
+
+        while(isNaN(euros) || euros <= 0) {
+            mensaje = "Error. Introduce un número valido o mayor que 0.";
+            euros = parseFloat(prompt(mensaje));
+        }
+
+        const tasaUSD = 1.17;
+        const tasaJPY = 176;
+
+        let dolares = euros * tasaUSD;
+        let yenes = euros * tasaJPY;
+
+        alert(`${euros.toFixed(2)}€ equivales a:\n ->${dolares.toFixed(2)} dolares.\n ->${yenes.toFixed(2)} yenes.`)
+
+    </script>
+</body>
+</html>

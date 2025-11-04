@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function juegoPiedraPapelTijera () {
+            let mensaje = `¡Juego de Piedra, papel o tijera!\n¿Cuantas rondas deseas jugar?\n(Introduce un numero impar)`;
+            let rondas = parseInt(prompt(mensaje));
+
+            while(isNaN(rondas) || rondas % 2 == 0 || rondas < 0) {
+                mensaje = `Error, porfavor sigue las instrucciones\n¡Juego de Piedra, papel o tijera!\n¿Cuantas rondas deseas jugar?\n(Introduce un numero impar)`;
+                rondas = parseInt(prompt(mensaje));
+            }
+
+            let mensaje2 = "Elije piedra, papel o tijera";
+            let palabraUsuario = prompt(mensaje2).trim().toLowerCase();
+
+            while(palabraUsuario != 'piedra' && palabraUsuario != 'papel' && palabraUsuario != 'tijera') {
+                mensaje2 = "Error, introduce una de las 3 opciones disponibles:\nPiedra, papel o tijera";
+                palabraUsuario = prompt(mensaje2).trim().toLowerCase();
+            }
+
+
+            let opciones = ['piedra', 'papel', 'tijera'];
+
+            let victoriasUsuario = 0;
+            let victoriasMaquina = 0;
+            let rondasTotales = parseInt(rondas / 2) + 1;
+            let posicionesGanadoras = new Map([['piedra', 'tijera'], ['papel', 'piedra'], ['tijera', 'papel']]);
+            let ganador = "";
+        
+            while(victoriasUsuario != rondasTotales && victoriasMaquina != rondasTotales) {
+                let palabraMaquina = opciones[Math.floor(Math.random() * 3) + 0];
+
+                if (palabraUsuario === palabraMaquina) {
+                    ganador = "Empate";
+                } else if (posicionesGanadoras.get(palabraUsuario) === palabraMaquina) {
+                    ganador = "¡Gana el jugador!";
+                    victoriasUsuario++;
+                } else {
+                    ganador = "¡Gana la maquina!";
+                    victoriasMaquina++;
+                }
+                
+                alert(`${ganador}\n\n *Jugador -> ${palabraUsuario}\n${victoriasUsuario} victorias.
+                \n*Maquina -> ${palabraMaquina}\n${victoriasMaquina} victorias.`);
+                
+                if(victoriasUsuario != rondasTotales && victoriasMaquina != rondasTotales) {
+                    mensaje2 = "Elije piedra, papel o tijera";
+                    palabraUsuario = prompt(mensaje2).trim().toLowerCase();
+
+                    while(palabraUsuario != 'piedra' && palabraUsuario != 'papel' && palabraUsuario != 'tijera') {
+                        mensaje2 = "Error, introduce una de las 3 opciones disponibles:\nPiedra, papel o tijera";
+                        palabraUsuario = prompt(mensaje2).trim().toLowerCase();
+                    } 
+                } 
+            }
+
+            let ganadorFinal = victoriasUsuario > victoriasMaquina ? "¡Felicidades, haz ganado!": "Gana la maquina. Mejor suerte la proxima.";
+
+            alert(ganadorFinal);
+        }
+        
+        juegoPiedraPapelTijera();
+
+        let mensaje3 = "¿Quieres la revancha?";
+        let seguirJugando = confirm(mensaje3);
+
+        while (seguirJugando) {
+            juegoPiedraPapelTijera();
+
+            mensaje3 = "¿Quieres la revancha?";
+            seguirJugando = confirm(mensaje3);
+        }
+
+    </script>
+</body>
+</html>

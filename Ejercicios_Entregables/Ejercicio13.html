@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numero Invertido</title>
+</head>
+<body>
+    <script>
+
+        // Pidiendo un número por teclado, 
+        // invertir su valor y mostrarlo por pantalla. 
+        // Ejemplo: 1234567 --> 7654321
+
+        let mensaje = "Introduce un número entero al menos de dos digitos: ";
+        let numero = parseInt(prompt(mensaje));
+
+        // Lo pongo que menor o igual que 9 para que cumpla la condicion de que es 
+        // un numero de dos digitos y pido ese requisito para que como minimo, 
+        // se pueda ver reflejado el intercambio de esos 2 numeros.
+        while(isNaN(numero) || numero <= 9) { 
+            mensaje = "Error. Introduce un número entero y mayor de 1 digito: ";
+            numero = parseInt(prompt(mensaje));
+        }
+
+        let numeroString = numero.toString();
+        let invertido = "";
+
+        for(let i = 0; i < numeroString.length; i++) {
+            invertido = numeroString[i] + invertido;
+        }
+
+        alert(`Numero ingresado: ${numero}\nNumero invertido: ${invertido}`);
+
+    </script>
+</body>
+</html>

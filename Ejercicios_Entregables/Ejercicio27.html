@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de contraseñas</title>
+</head>
+<body>
+    <script>
+
+        //Generador de contraseñas: Genera una contraseña aleatoria de 
+        // 8 caracteres (letras y números) y muéstrala en la consola. 
+        // (Usar la librería Math)
+
+        alert(`¡No olvides revisar la consola!🔐`);
+        let letrasyNumeros = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ12345678";
+        let contraseña = "";
+
+        for(let i = 0; i < 8; i++) {
+            let indiceAleatorio = Math.floor(Math.random() * letrasyNumeros.length);
+            let caracter = letrasyNumeros.charAt(indiceAleatorio);
+            contraseña += caracter; 
+        }
+
+        console.log(`La contraseña generada ha sido: ${contraseña}`);
+
+
+    </script>
+</body>
+</html>

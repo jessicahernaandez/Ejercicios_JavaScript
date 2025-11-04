@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cantidad de dígitos</title>
+</head>
+<body>
+    <script>
+
+        // Escribe un programa que cuente y muestre la cantidad de dígitos 
+        // en un número entero ingresado por el usuario.
+
+        let mensaje = "Introduce un número entero: ";
+        let numero = parseInt(prompt(mensaje));
+
+        while(isNaN(numero) || numero < 0) {
+            mensaje = "Error. Introduce un número entero: ";
+            numero = parseInt(prompt(mensaje));
+        }
+
+        //Lo convierto en String para conseguir su longuitud.
+        let cantidad = String(numero).length;
+
+        alert(`El numero ${numero} tiene ${cantidad} de digitos.`);
+
+        
+    </script>
+</body>
+</html>

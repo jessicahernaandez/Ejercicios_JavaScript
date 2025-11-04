@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de Nota de Examen</title>
+</head>
+<body>
+    <script>
+
+        // Vamos a realizar el cálculo de la nota de un examen de tipo test. Para ello, 
+        // tendremos en cuenta el número total de preguntas, los aciertos y los errores.
+
+        let mensaje = "Introduce el número total de preguntas: ";
+        let totalPreguntas = parseInt(prompt(mensaje));
+
+        while (isNaN(totalPreguntas) || totalPreguntas <= 0) {
+            mensaje = "Error. Introduce un número entero positivo válido: ";
+            totalPreguntas = parseInt(prompt(mensaje));
+        }
+
+        let mensaje2 = "Introduce el número de aciertos: ";
+        let aciertos = parseInt(prompt(mensaje2));
+
+        while (isNaN(aciertos) || aciertos < 0 || aciertos > totalPreguntas) {
+            mensaje2 = "Error. Introduce un número válido (0 a " + totalPreguntas + "): ";
+            aciertos = parseInt(prompt(mensaje2));
+        }
+
+        let mensaje3 = "Introduce el número de errores: ";
+        let errores = parseInt(prompt(mensaje3));
+
+        while (isNaN(errores) || errores < 0 || errores > (totalPreguntas - aciertos)) {
+            mensaje3 = "Error. Introduce un número válido (0 a " + (totalPreguntas - aciertos) + "): ";
+            errores = parseInt(prompt(mensaje3));
+        }
+
+        let enBlanco = totalPreguntas - aciertos - errores;
+        let puntuacionRaw = aciertos * 1 + errores * (-0.25) + enBlanco * 0;
+
+        let notaFinal = (puntuacionRaw / totalPreguntas) * 10;
+
+        alert(`Desglose del examen:\nTotal preguntas: ${totalPreguntas}\nAciertos: ${aciertos} (+${aciertos * 1})\nErrores: ${errores} (-${errores * 0.25})\nEn blanco: ${enBlanco} (0)\n\nPuntuación raw: ${puntuacionRaw.toFixed(2)}\nNota final (0-10): ${notaFinal.toFixed(2)}`);
+
+    </script>
+</body>
+</html>

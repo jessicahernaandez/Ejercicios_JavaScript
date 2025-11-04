@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numeros Primos</title>
+</head>
+<body>
+    <script>
+        // Números Primos: Pide al usuario un número y determina si es primo.
+
+        let mensaje = "Introduce un número entero mayor a 1: ";
+        let numUsuario = parseInt(prompt(mensaje));
+
+        while (isNaN(numUsuario) || numUsuario <= 1) {
+            mensaje = "Error. Introduce un número entero positivo: ";
+            numUsuario = parseInt(prompt(mensaje));
+        }
+
+        let esPrimo = true;
+
+        if(numUsuario % 2 === 0 && numUsuario > 2) {
+            esPrimo = false;
+        } else {
+            for(let i = 3; i * i <= numUsuario; i+= 2) { //Para no ir verificando uno a uno, es mas rapido.
+                if(numUsuario % i === 0) {
+                    esPrimo = false;
+                }
+            }
+        }
+
+        if(esPrimo) {
+            alert(`El numero ${numUsuario} es PRIMO`);
+        } else {
+            alert(`El numero ${numUsuario} es  NO ES PRIMO`);
+        }
+        
+
+    </script>
+</body>
+</html>
