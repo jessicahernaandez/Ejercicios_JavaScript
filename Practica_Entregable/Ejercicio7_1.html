@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //Crea un conjunto vacio y añadele lso elementos de los arrays [12,12,12,14],
+        //[11,11,13,15] y ["a","b","c","a","e"] ()
+
+        let conjunto1 = new Set();
+        let array1 = [12,12,12,14];
+        let array2 = [11,11,13,15];
+        let array3 = ["a","b","c","a","e"];
+        
+        for(let valor of array1) {
+            conjunto1.add(valor);
+        }
+
+        for(let valor of array2) {
+            conjunto1.add(valor);
+        }
+
+        for(let valor of array3) {
+            conjunto1.add(valor);
+        }
+        
+        for(let valor of conjunto1) {
+            console.log(`Valor: ${valor}`);
+        }
+        
+
+
+        
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let mapa = new Map([['D12345', 'Jessica Paola Hernández'],
+                            ['N98765', 'Andrea Estefany Rivera'],
+                            ['O45672', 'Wendy Guadalupe Aguilar'],
+                            ['E27943', 'Alexis Alejandro Boryorni'],
+                            ['I71209', 'Alejandra Valentina Boryorni'],
+                            ['Y81209', 'Elizabetha Khosvasku'],
+                            ['H97641', 'Daria Khaluvo'],
+                            ['B67812', 'Alba Ramirez'],
+                            ['A23409', 'Cynthia Cariño Trujillo'],
+                            ['H09876', 'Leonidas Alfonso Martinez']]);
+
+        for(let [clave, valor] of mapa) {
+            console.log(`DNI: ${clave}, Nombre: ${valor}`);
+        }
+
+        console.log('----------------------------------------');
+
+        //Modificar el tercer DNI
+        let arrayNombre = new Array([... mapa]);
+
+        arrayNombre[0][2][1] = 'Jose Ramirez';
+        console.log(arrayNombre);
+
+        mapa2 = new Map([... arrayNombre]);
+        console.log(mapa2);
+
+    </script>
+</body>
+</html>

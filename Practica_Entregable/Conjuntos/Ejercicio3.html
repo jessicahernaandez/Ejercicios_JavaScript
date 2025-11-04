@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Crear un grupo de números aleatorios distintos. 
+        // Usando un array, guarda 10 elementos que sean diferentes. 
+        // Los numeros generados tienen que ser del 1 al 12.
+        // Haz lo mismo usando un conjunto.
+
+        let array1 = [];
+        while(array1.length != 10) {
+            numRandom = Math.floor(Math.random() * 12) + 1;
+            if(!array1.includes(numRandom)) {
+                array1.push(numRandom);
+            }
+        }
+
+        console.log(`Numeros random: ${array1}`);
+
+        //Con el conjunto
+        let conjunto = new Set();
+        while (conjunto.size != 10) {
+            numRandom = Math.floor(Math.random() * 12) + 1;
+            conjunto.add(numRandom);
+        }
+
+        console.log(`Numeros random conjunto: ${conjunto}`);
+
+
+    </script>
+</body>
+</html>
