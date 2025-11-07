@@ -1,0 +1,36 @@
+<script>
+    const presentacion = function() {
+        return "Hola a todos. Mi nombre es, ";
+    }
+
+    const usuario = function(callback) {
+        console.log(callback() + "Jessica");
+    }
+
+    usuario(presentacion);
+
+    (function (nombre) {
+        console.log(`El profe de DWEC se llama ${nombre}`);
+    }) ("Hugo");
+
+    let resultado = (function (nombre) {
+        return `El profe de DWEC se llama ${nombre}`;
+    }) ("Hugo");
+
+    console.log(resultado);
+    console.log(typeof resultado);
+    console.log(resultado());
+
+    const incrementar = (function() {
+        let numero = 0;
+        return function() {
+            numero++;
+            return numero;
+        };
+    })();
+
+    console.log(incrementar());
+    console.log(incrementar());
+    console.log(incrementar());
+    console.log(incrementar());
+</script>

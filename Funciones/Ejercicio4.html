@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //Palabra inicial de prueba
+        let palabraSecreta = "sargento";
+        let caracteres = [];
+
+        let mensaje = "¡Adivina la palabra!\nIntroduce una caracteres:\n*Escribe 'cancelar' para cancelar";
+        let respuesta = prompt(mensaje).toLowerCase();
+
+        while (respuesta != "cancelar") {
+
+            while (!isNaN(respuesta)) {
+                mensaje = "¡Adivina la palabra!\nError, Introduce caracteres correctos. Introduce una caracteres:\n*Escribe 'cancelar' para cancelar";
+                respuesta = prompt(mensaje).toLowerCase();
+            }
+
+            caracteres.push(respuesta);  
+
+            mensaje = "¡Adivina la palabra!\nIntroduce una caracteres:\n*Escribe 'cancelar' para cancelar";
+            respuesta = prompt(mensaje).toLowerCase();
+
+        }
+
+        console.log(caracteres);
+
+        function adivinaPalabra (palabraSecreta, arrCaracteres) {
+            let adivinad = [];
+            
+            for(let i=0;i<palabraSecreta;i++) {
+                //Con includes
+    
+            }
+        }
+
+       
+    </script>
+</body>
+</html>
