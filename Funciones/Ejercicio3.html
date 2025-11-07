@@ -8,48 +8,106 @@
 <body>
     <script>
 
-        let mensajeUsuario = "¡Juego de Dados!\n¿Con que tipo de dado vas a jugar (4-20 -> numero Par)?";
-        let tipoDado = parseInt(prompt(mensajeUsuario));
+        // Datos de usuarios y su respectiva comprobaciones
+
+        let mensajeUsuario = "¡Juego de Dados!\n¿Con que tipo de dado vas a jugar (Por defecto 6)?";
+        let respuesta = prompt(mensajeUsuario);
+
+        //Para que tenga valor por defecto, en el caso que el usuario presione 'enter'.
+        let tipoDado = respuesta === "" || respuesta === null ? 6 : parseInt(respuesta);
 
         while(isNaN(tipoDado) || tipoDado < 4 || tipoDado > 20 || tipoDado % 2 != 0) {
-            mensajeUsuario = "¡Juego de Dados!\nError, introduce un número correcto (4-20 -> numero Par)";
-            tipoDado = parseInt(prompt(mensajeUsuario));
+            mensajeUsuario = "¡Juego de Dados!\nTipo Dado:\nError, introduce un número correcto\n*4-20 -> numero Par";
+            respuesta = prompt(mensajeUsuario);
+
+            tipoDado = respuesta === "" || respuesta === null ? 6 : parseInt(respuesta);
         }
 
-        let mensajeUsuario2 = "¡Juego de Dados!\n¿Cuantas rondas van a jugar?";
-        let rondas = parseInt(prompt(mensajeUsuario2));
+        let mensajeUsuario2 = "¡Juego de Dados!\n¿Cuantas rondas van a jugar? (Por defecto 5)";
+        let respuesta2 = prompt(mensajeUsuario2);
+
+        let rondas = respuesta2 === "" || respuesta2 === null ? 5 : parseInt(respuesta2);
 
         while(isNaN(rondas) || rondas < 0) {
-            mensajeUsuario2 = "¡Juego de Dados!\nError, Introduce un número correcto.";
-            rondas = parseInt(prompt(mensajeUsuario2));
+            mensajeUsuario2 = "¡Juego de Dados!\nRondas:\nError, Introduce un número correcto.\nMayor a 0";
+            respuesta2 = prompt(mensajeUsuario2);
+
+            rondas = respuesta2 === "" || respuesta2 === null ? 5 : parseInt(respuesta2);
         }
 
-        let mensajeUsuario3 = "¡Juego de Dados!\n¿Cuantos dados se tiraran por jugador (min=1, max=4)?";
-        let cuantosDados = parseInt(prompt(mensajeUsuario3));
+        let mensajeUsuario3 = "¡Juego de Dados!\n¿Cuantos dados se tiraran por jugador?\nPor defecto 2.\nmin=1, max=4?";
+        let respuesta3 = prompt(mensajeUsuario3);
+
+        let cuantosDados = respuesta3 === "" || respuesta3 === null ? 2 : parseInt(respuesta3);
 
         while(isNaN(cuantosDados) || cuantosDados < 1 || cuantosDados > 4) {
-            mensajeUsuario2 = "¡Juego de Dados!\nError, Introduce un número correcto.(min=1, max=4)";
-            rondas = parseInt(prompt(mensajeUsuario2));
+            mensajeUsuario3 = "¡Juego de Dados!\nCuantos Dados:\nError, Introduce un número correcto.(min=1, max=4)";
+            respuesta3 = prompt(mensajeUsuario3);
+
+            cuantosDados = respuesta3 === "" || respuesta3 === null ? 2 : parseInt(respuesta3);
         }
 
-        function resultadoDado (tipoDado) {
-            let resultado = Math.floor(Math.random() * tipoDado) + 1;
-            
-            return resultado;
-        }
 
-        while(rondas != 0) {
-            while(cuantosDados != 0) {
-                alert(`Resultado de dado: ${resultadoDado(tipoDado)}`);
-                cuantosDados--;
+        let puntosJugador1 = 0;
+        let puntosJugador2 = 0;
+
+        for(let rondasJugadores=1;rondasJugadores<=rondas;rondasJugadores++) {
+            let resultadosJugador1 = resultadosDado(tipoDado,cuantosDados);
+            let cadenaResultados1 = resultadosJugador1.join(',');
+            let suma1 = sumaResultados(resultadosJugador1);
+            let resultadosJugador2 = resultadosDado(tipoDado,cuantosDados);
+            let cadenaResultados2 = resultadosJugador2.join(',');
+            let suma2 = sumaResultados(resultadosJugador2);
+
+            if(suma1 > suma2) {
+                puntosJugador1++;
+            } else if (suma1 < suma2){
+                puntosJugador2++;
             }
-            rondas--;
+
+            let victoria = ganaoPierde(suma1,suma2);
+            
+            alert(`Ronda ${rondasJugadores}: ${puntosJugador1}-${puntosJugador2}\n  -Jugador 1: ${cadenaResultados1} -> Puntos: ${suma1}.\n  -Jugador 2: ${cadenaResultados2} -> Puntos: ${suma2}.\n\n***${victoria}***`);
         }
 
+        let ganador = ganaoPierde(puntosJugador1,puntosJugador2);
+        alert(`${ganador}\n  *Puntos totales jugador 1: ${puntosJugador1}\n  *Puntos totales jugador 2: ${puntosJugador2}\n¡Buen Juego!`);
+        
+        // Funcion que recibe como parametro el tipo de Dado y la cantidad de dados con la que jugará cada uno.
+        function resultadosDado (tipoDado=6,cuantosDados=2) {
+            let resultados = [];
 
+            for(let i=0;i<cuantosDados;i++) {
+                resultados[i] = Math.floor(Math.random() * tipoDado) + 1;
+            }
+            
+            return resultados;
+        }
 
+        //Funcion que recibe como parametro el array con los resultados de cada ronda y los suma.
+        function sumaResultados (resultados) {
+            let suma = 0;
 
+            for(let valor of resultados) {
+                suma += valor;
+            }
 
+            return suma;
+        }
+
+        // Funcion que recibe como parametros las 2 sumas diferentes y devuelve un string diciendo si es empate,
+        // O victoria para alguno de los jugadores.
+        function ganaoPierde (suma1, suma2) {
+            let ganador = "";
+
+            if (suma1 == suma2) {
+                ganador = "Empate";
+            } else {
+                ganador = suma1 > suma2 ? "Victoria para Jugador 1" : "Victoria para Jugador 2";
+            }
+
+            return ganador;
+        }
 
     </script>
 </body>
