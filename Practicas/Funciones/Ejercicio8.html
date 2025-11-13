@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function esPalindromo(palabra) {
+        palabra = palabra.toLowerCase();
+
+        function verificar(inicio, fin) {
+            if (inicio >= fin) {
+                return true; 
+            }
+            if (palabra[inicio] !== palabra[fin]) {
+                return false; 
+            }
+            return verificar(inicio + 1, fin - 1); 
+        }
+
+        return verificar(0, palabra.length - 1);
+    }
+
+
+    console.log(esPalindromo("radar"));   
+    console.log(esPalindromo("nivel"));  
+    console.log(esPalindromo("hola"));
+    </script>
+</body>
+</html>

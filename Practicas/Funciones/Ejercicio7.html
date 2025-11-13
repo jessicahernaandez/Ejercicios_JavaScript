@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let masLarga = (cadena1,cadena2) => { 
+            let chars = ['a', 'e', 'i', 'o', 'u'];
+            let contador1 = 0;
+            let contador2 = 0;
+            for(let i=0;i<cadena1.length;i++) {
+                if(chars.includes(cadena1[i])) {
+                    contador1++;
+                } 
+            }
+
+            for(let i=0;i<cadena2.length;i++) {
+                if(chars.includes(cadena2[i])) {
+                    contador2++;
+                } 
+            }
+
+            return contador1 > contador2 ? `La cadena ${cadena1} contiene mas vocales` : `La cadena ${cadena2} contiene mas vocales` ;
+        };
+
+        masLarga("Luna bonita", "Luna");
+    </script>
+</body>
+</html>

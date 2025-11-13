@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let mensajeUsuario = "Introduce el precio a calcular: ";
+        let precioUsuario = parseFloat(prompt(mensajeUsuario));
+
+        while(isNaN(precioUsuario) || precioUsuario < 0) {
+            mensajeUsuario = "Error. Introduce un número valido.";
+            precioUsuario = parseFloat(prompt(mensajeUsuario));
+        }
+
+        let mensajeUsuario2 = "Introduce el porcentaje de descuento a aplicar: ";
+        let porcentajeUsuario = parseFloat(prompt(mensajeUsuario2));
+
+        while(isNaN(porcentajeUsuario) || porcentajeUsuario < 0) {
+            mensajeUsuario2 = "Error. Introduce un número valido.";
+            porcentajeUsuario = parseFloat(prompt(mensajeUsuario2));
+        }
+
+
+
+        function calcularDescuento (precio, porcentajeAplicar) {
+            return (porcentajeAplicar / 100) * precio;
+        }
+
+        function precioConDescuento(precio, descuento) {
+            return precio - descuento;
+        }
+
+        alert(`Precio original: ${precioUsuario}\nDescuento aplicado: ${porcentajeUsuario}\nCantidad descontada:${calcularDescuento(precioUsuario,porcentajeUsuario)}\nPrecio Final:${precioConDescuento(precioUsuario, calcularDescuento(precioUsuario,porcentajeUsuario))}`);
+    </script>
+</body>
+</html>

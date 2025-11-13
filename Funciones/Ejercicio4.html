@@ -17,7 +17,7 @@
 
         while (respuesta != "cancelar") {
 
-            while (!isNaN(respuesta)) {
+            while (!isNaN(respuesta) || respuesta.length !== 1) {
                 mensaje = "¡Adivina la palabra!\nError, Introduce caracteres correctos. Introduce una caracteres:\n*Escribe 'cancelar' para cancelar";
                 respuesta = prompt(mensaje).toLowerCase();
             }
@@ -34,12 +34,18 @@
         function adivinaPalabra (palabraSecreta, arrCaracteres) {
             let adivinad = [];
             
-            for(let i=0;i<palabraSecreta;i++) {
-                //Con includes
-    
+            for(let i=0;i<palabraSecreta.length;i++) {
+                if(arrCaracteres.includes(palabraSecreta[i])) {
+                    adivinad[i] = palabraSecreta[i];
+                } else {
+                     adivinad[i] = "*";
+                }
             }
+
+            return adivinad.join('');
         }
 
+        alert(`Aparecen los caracteres que coinciden con la palabra secreta: ${adivinaPalabra(palabraSecreta,caracteres)}`);
        
     </script>
 </body>
