@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        let usuario = {};
+
+        let mensaje = "Ingresa tu nombre completo: ";
+        let nombreCompleto = prompt(mensaje);
+
+        while(!isNaN(nombreCompleto)) {
+            mensaje = "Error\nIngresa tu nombre completo: ";
+            nombreCompleto = prompt(mensaje);
+        }
+
+        usuario.nombre = nombreCompleto;
+
+        let mensaje2 = "Introduce tu nombre de usuario";
+        let username = prompt(mensaje2);
+
+        while(!isNaN(username)) {
+            mensaje2 = "Error\nIngresa tu username: ";
+            username = prompt(mensaje2);
+        }
+
+        usuario.usuario = username;
+
+        let mensaje3 = "Introduce una contraseña:";
+        let contraseña = prompt(mensaje3);
+
+        while(!isNaN(contraseña)) {
+            mensaje3 = "Error\nIngresa tu contraseña: ";
+            contraseña = prompt(mensaje3);
+        }
+
+        usuario.contraseña = contraseña;
+
+        let mensaje4 = "Introduce tu nombre de usuario: ";
+        let nombreUsu = prompt(mensaje4); 
+
+        let mensaje5 = "Introduce tu contraseña: ";
+        let contraUsu = prompt(mensaje5); 
+
+        usuario.login = function (nombreUsu, contraUsu) {
+            let registro = nombreUsu == usuario.nombre && contraUsu == usuario.contraseña ? "Login correcto" : "Login Incorrecto";
+
+            alert(registro);
+        }
+
+        alert(usuario.login(nombreUsu, contraUsu));
+
+        let usuario = {
+            nombre: "Jessica",
+            user : "jkher",
+            contraseña: "luna",
+        };
+
+    
+        let jsonVariable = JSON.stringify(usuario);
+
+        let jsonObjeto = `{
+            "id": 1,
+            "name": "Leanne Graham",
+            "username": "Bret",
+            "email": "Sincere@april.biz",
+            "address": {
+                "street": "Kulas Light",
+                "suite": "Apt. 556",
+                "city": "Gwenborough",
+                "zipcode": "92998-3874",
+                "geo": {
+                "lat": "-37.3159",
+                "lng": "81.1496"
+                }
+            },
+            "phone": "1-770-736-8031 x56442",
+            "website": "hildegard.org",
+            "company": {
+                "name": "Romaguera-Crona",
+                "catchPhrase": "Multi-layered client-server neural-net",
+                "bs": "harness real-time e-markets"
+            }
+        }`;
+
+        let persona = JSON.parse(jsonObjeto);
+    </script>
+</body>
+</html>

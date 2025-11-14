@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let listaA = new Set(["zapatos", "chaquetas", "pijamas", "botas", "toallas", "bufandas", "sombreros"]);
+        let listaB = new Set(["sombreros", "botas", "lentes", "aretes", "collares", "bufandas"]);
+
+        //Productos que estan solo en el almacen y no en oferta.
+        let arrproductosDiferentes = [... listaA].filter(producto => !listaB.has(producto));
+        let conjuntoDiferentes = new Set(arrproductosDiferentes);
+        console.log("Productos que solo estan en el almacen: ");
+        console.log(conjuntoDiferentes);
+
+        //Productos que estan tanto en el almacen como en oferta
+        let elementosComunes = [... listaA].filter(producto => listaB.has(producto));
+        let conjuntoComunes = new Set(elementosComunes);
+        console.log("Productos que estan tanto en el almacen como en oferta");
+        console.log(conjuntoComunes);
+
+        //Productos que estan solo en oferta o solo en almacen
+        let elementosSoloAlmacen = [... listaA].filter(producto => !listaB.has(producto));
+        let elementosSoloOferta = [... listaB].filter(producto => !listaA.has(producto));
+        let elementosSolo = new Set([...elementosSoloAlmacen, ...elementosSoloOferta]);
+        console.log("Productos que estan solo en almacen o solo en oferta");
+        console.log(elementosSolo);
+
+    </script>
+</body>
+</html>

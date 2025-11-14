@@ -33,4 +33,28 @@
     console.log(incrementar());
     console.log(incrementar());
     console.log(incrementar());
+
+
+    const animales = ["Gato", "Perro", "Tiranosaurio", "Ornitorrinco"];
+    animales.forEach((element) => console.log(element));
+    animales.forEach((element, index) => console.log(element, index));
+    animales.forEach((element, index, array) => console.log(array[0]));
+
+    const objeto = {
+        nombre: "Paco Perez", 
+        edad: 57,
+        peso:85
+    };
+
+    const json = `{
+        "nombre" : "Jessica",
+        "usuario" : "jkher",
+        "contraseña" : "luna"
+    }`;
+
+    const usuario1 = JSON.parse(json);
+
+    console.log(usuario1.usuario);
+    console.log(usuario1.contraseña);
+
 </script>
