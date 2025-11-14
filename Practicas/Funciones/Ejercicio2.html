@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let codigoPostales = new Map([
+            ["codigo1", 288227],
+            ["codigo2", 256],
+            ["codigo3", 6543],
+            ["codigo4",256787],
+            ["codigo5", 123457]
+        ]);
+
+        function borraPostalesIncorrectos (arrayPostales) {
+            for(let [clave, codigo] of codigoPostales) {
+                let strCodigo = codigo.toString();
+                if(strCodigo.length < 5) {
+                    codigoPostales.delete(clave);
+                }
+            }
+        }
+
+        borraPostalesIncorrectos(codigoPostales);
+        console.log("Mapa csin codigos postales menos a 5 digitos:\n");
+        console.log(codigoPostales);
+
+        
+    </script>
+</body>
+</html>

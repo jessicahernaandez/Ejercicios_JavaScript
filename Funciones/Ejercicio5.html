@@ -9,14 +9,14 @@
     <script>
         let invertida = function (strPalabra) {
             let palabra = "";
-            for(let i=0;i<strPalabra.length;i++) {
+            for(let i=strPalabra.length -1;i>=0;i--) {
                 palabra += strPalabra[i];
             }
 
             return palabra;
         }
 
-        console.log(invertida("odulas"));
+        console.log(invertida("saludo"));
     </script>
 </body>
 </html>
