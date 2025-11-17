@@ -66,3 +66,8 @@
 }
 
 export {TelefonoMovil}; 
+
+
+TelefonoMovil.prototype.tonoLlamada = function () {
+    console.log("RING RING RING");
+}

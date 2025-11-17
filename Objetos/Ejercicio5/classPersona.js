@@ -1,4 +1,4 @@
-import { TelefonoMovil } from "./classTelefono";
+import { TelefonoMovil } from "./classTelefono.js";
 
 class Persona {
 
