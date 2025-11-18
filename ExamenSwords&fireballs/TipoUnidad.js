@@ -11,12 +11,12 @@ export class TipoUnidad {
     // *La vidaMin y vidaMax, porque dependiendo de la unidad tienen rangos de vida diferentes.
     // *Al igual que la vida, cada uno tiene coste de contratacion y ganancia de retirarlos diferentes.
     // *El ataque lo incializo dentro del contructor, porque todos tienen un ataque entre 10 y 20.
-    constructor (nombre, costeContratacion, gananciaRetirarlo, vidaMin, vidaMax,) {
+    constructor (nombre, costeContratacion, gananciaRetirarlo, vidaMin, vidaMax) {
         this.nombre = nombre;
         this.ataque = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
         this.costeContratacion = costeContratacion;
         this.gananciaRetirarlo = gananciaRetirarlo;
-        this.puntosDeVidaMax = Math.floor(Math.random() * (vidaMax - vidaMin + 1)) + vidaMin; //Para poder generar la recuperacion a base de su vida fija
+        this.puntosDeVidaMax = Math.floor(Math.random() * (vidaMax - vidaMin + 1)) + vidaMin; //Para poder generar la recuperacion a base de su vida fija.
         this.puntosDeVida = this.puntosDeVidaMax; //Este si que puedo modificarlo.
     }
 
@@ -41,17 +41,54 @@ export class TipoUnidad {
         this.puntosDeVida = this.puntosDeVidaMax * 0.70;
     }
 
-    //Metodos GETTERS
+    //Metodos GETTERS -> Las clases hijas heredan estos metodos, por lo cual no necesito escribir mas getters y setters en las clases.
     get getNombre () {
         return this.nombre;
+    }
+
+    get getAtaque () {
+        return this.ataque;
+    }
+
+    get getCosteContratacion () {
+        return this.costeContratacion;
+    }
+
+    get getRetirarlo () {
+        return this.gananciaRetirarlo;
+    }
+
+    get getPuntosVidaMax () {
+        return this.puntosDeVidaMax;
     }
 
     get getPuntosVida () {
         return this.puntosDeVida;
     }
 
-    get getCosteContratacion () {
-        return this.costeContratacion;
+    //Metodos SETTERS de las propiedad. Como las 3 unidades comparten estas mismas propiedades, entonces lo heredan.
+    set setNombre (nuevoNombre) {
+        this.nombre = nuevoNombre;
+    }
+
+    set setAtaque (nuevoAtaque) {
+        this.ataque = nuevoAtaque;
+    }
+
+    set setCosteContratacion (nuevoCoste) {
+        this.costeContratacion = nuevoCoste;
+    }
+
+    set setGananciaRetirarlo (nuevaGanancia) {
+        this.gananciaRetirarlo = nuevaGanancia;
+    }
+
+    set setPuntosDeVidaMax (nuevaVidaMax) {
+        this.puntosDeVidaMax = nuevaVidaMax;
+    }
+
+    set setPuntosVida (nuevaVida) {
+        this.puntosDeVida = nuevaVida;
     }
 
 

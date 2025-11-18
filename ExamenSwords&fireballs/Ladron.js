@@ -16,10 +16,10 @@ export class Ladron extends TipoUnidad {
     recibirDaño (dañoRival) {
 
         if(this.esquivas > 0) {
-            let probabilidad = Math.floor(Math.random() * 100) + 1; //Como Math.random saca numeros entre 0 (incluido) y 1 (excluido), entonces no necesitamos poner mas numeros.
+            let probabilidad = Math.floor(Math.random() * 100) + 1; //genera randoms entre 1 y 100.
             if(probabilidad <= 35) {
                 this.esquivas--;
-            } else { //Si no saca la probabilidad 0,35 o menos, recibe el daño.
+            } else { //Si no saca la probabilidad 35 o menos, recibe el daño.
                 super.recibirDaño(dañoRival);
             }
         } else {
@@ -33,4 +33,15 @@ export class Ladron extends TipoUnidad {
         super.recuperarse();
         this.esquivas = 2;
     }
+
+    //Igual que las otras clases, hereda los GET y SET de la clase Padre, escribo solo el de la habilidad especial.
+    //METODOS GET Y SET DE LA HABILIDAD ESPECIAL
+    get getEsquivas () {
+        return this.esquivas;
+    }
+
+    set setEsquivas (nuevoValor) {
+        this.esquivas = nuevoValor;
+    }
+
 }

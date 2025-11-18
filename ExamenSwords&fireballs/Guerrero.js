@@ -32,5 +32,13 @@ export class Guerrero extends TipoUnidad {
         this.ataquesConcentrados = 3;
     }
 
-    //Necesario sobreescribirlo??.
+    //Como hereda todos los get y set de la clase Padre, solo escribire el get y set de la habilidad especial.
+    //GET Y SET HABILIDAD ESPECIAL.
+    get getAtaquesConcentrados () {
+        return this.ataquesConcentrados;
+    }
+
+    set setAtaqueConcentrado (nuevoAtaque) {
+        this.ataquesConcentrados = nuevoAtaque;
+    }
 }

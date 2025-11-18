@@ -26,3 +26,6 @@ export function esContratable (oroJugador, CosteTropa) {
 
     return contratable;
 }
+
+// La clase ejercito tenia una funcion que guardaba las tropas, por si la necesito mas tarde.
+

@@ -12,6 +12,7 @@ export class Jugador {
         this.derrotas = 0;
         this.intentosContratar = 6;
         this.recuperacion = false;
+        this.tropasJugador = [];
     }
 
     //GETTERS
@@ -35,9 +36,16 @@ export class Jugador {
         return this.recuperacion;
     }
 
+    get getTropasJugador () {
+        return this.tropasJugador;
+    }
+
     //SETTERS
     set setCambiaOro (cambioOro) {
         this.oroJugador -= cambioOro;
+        if(this.oroJugador < 0) {
+            this.oroJugador = 0;
+        }
     }
 
     set setCambiaVictorias (cambioVictorias) {
@@ -56,5 +64,8 @@ export class Jugador {
         this.recuperacion = cambioRecuperacion;
     }
 
+    set setTropasJugador (nuevaTropa) {
+        this.tropasJugador.push(nuevaTropa);
+    }
 
 }

@@ -28,4 +28,13 @@ export class Mago extends TipoUnidad {
         super.recuperarse();
         this.bolaDeFuego = 1;
     }
+
+    //METODOS GET Y SET DE LA HABILIDAD ESPECIAL.
+    get getBolaFuego () {
+        return this.bolaDeFuego;
+    }
+
+    set setBolaFuego (nuevoValor) {
+        this.bolaDeFuego = nuevoValor;
+    }
 }

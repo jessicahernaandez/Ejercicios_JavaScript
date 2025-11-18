@@ -1,4 +1,5 @@
 //Clase Ejercito, donde guardaremos el ejercito completo del usuario.
+//CLASE A BORRAR.
 
 export class Ejercito {
 

@@ -3,8 +3,8 @@
     import { Ladron } from "./Ladron.js";
     import { Mago } from "./Mago.js";
     import { Jugador } from "./Jugador.js";
-    import { Ejercito } from "./Ejercito.js";
     import { esContratable, generarTropa } from "./Funciones.js";
+
 
     // Mensaje de Bienvenida
     alert(`¡Bienvenido a \"Swords & fire balls\"!`);
@@ -20,20 +20,16 @@
     }
 
     // Variables Iniciales
-    let VictoriasParaGanar = respuestaDificultad == "dificil" ? 4 : 2;
-    let DerrotasParaPerder = 2;
+    let VictoriasParaGanar = respuestaDificultad == "dificil" ? 4 : 2; //Nos referimos a cada partida, es decir, necesita derrotar x tropas para ganar.
+    let DerrotasParaPerder = 2; // Tropas derrotadas.
     let jugador = new Jugador();
-    let ejercitoJugador = new Ejercito();
     let recuperacionTexto = jugador.getRecuperacion == true ? 'Si' : 'No';
     let numDeCombates = 0;
 
 
-    // let tropaPrueba = generarTropa();
-    // alert(tropaPrueba.toString());
     // Menu desplegable con opciones para el jugador
-    
     //Dependiendo de la opcion que haya elegido el jugador, haremos x accion.
-    while(jugador.getDerrotas != DerrotasParaPerder || jugador.getVictorias != VictoriasParaGanar || jugador.getIntentosContratacion != 0) {
+    while(jugador.getDerrotas != DerrotasParaPerder || jugador.getVictorias != VictoriasParaGanar || jugador.getIntentosContratacion != 0) { //Mientras dejamos asi, pero nos queda verfificar que si los intentos de contratacion estan a 0 y no tiene ninguna tropa.
 
         let menuAcciones = `Oro ${jugador.getOroJugador} | V ${jugador.getVictorias} D ${jugador.getDerrotas}\n\nIntentos contratar restantes: ${jugador.getIntentosContratacion} | Recuperación: ${recuperacionTexto}\n\nElige una acción:\n1) Contratar\n2) Despedir\n3) Combatir\n4) Recuperarse\n5) Ver estado detallado\n0) Salir`;
         let accionJugador = parseInt(prompt(menuAcciones));
@@ -52,33 +48,45 @@
                     alert(`Necesitas al menos 1000 de oro para ver mercenarios.`);
                 } else if (jugador.getIntentosContratacion == 0) {
                     alert(`Ya has agotado los intentos de contratación.`);
-                } else if (ejercitoJugador.getNumTropas == 5) {
+                } else if (jugador.getTropasJugador.length == 5) { 
                     alert(`Ya no tienes huecos disponibles en tu ejercito.`);
                 } else {
-                    //Mostramos el menu
-                    let tropa1 = generarTropa();
-                    let tropa2 = generarTropa();
-                    let tropa3 = generarTropa();
+                    //Mostramos el menu 
+                    //Genero la cantidad de tropas que queremos mostrar
+                    let tropasMostrar = 3;
+                    let tropasAleatorias = [];
 
-                    let mensajeTropa = `Mercenarios disponibles (oro: ${jugador.getOroJugador})\n1)${tropa1.toString()} -> ${esContratable(jugador.getOroJugador, tropa1.costeContratacion)}\n2)${tropa2.toString()} -> ${esContratable(jugador.getOroJugador, tropa2.getCosteContratacion)}\n3)${tropa3.toString()} -> ${esContratable(jugador.getOroJugador, tropa3.getCosteContratacion)}\n\nElige 1-3 para contratar, 0 para cancelar:`;
+                    //Con el buclo genero las tropas aleatorias y las guardo en el array.
+                    for(let indice=0;indice<tropasMostrar;indice++) {
+                        tropasAleatorias.push(generarTropa());
+                    }
+
+                    //Una vez tengo las 3 tropas generadas de manera aleatoria, tengo que generar el mensaje donde muestro la informacion de cada una de ellas.
+                    //Para poder mostrar el mensaje, utilizo la funcion para arrays forEach() que no devuelve nada, pero nos permite poder
+                    //ejecutar una funcion para cada uno de los elementos del array. forEach(elemento,indice,array) -> valor obligatorio, es el primero, el indice.
+                    //Me genero la primera parte del mensaje.
+                    let mensajeTropa = `Mercenarios disponibles (oro: ${jugador.getOroJugador})\n`;
+                    //Ahora, utilizo la funcion por medio del array donde estan las tropas temporales.
+                    tropasAleatorias.forEach((tropa,indice) => mensajeTropa += `${indice + 1}) ${tropa.toString()} -> ${esContratable(jugador.getOroJugador, tropa.getCosteContratacion)}\n`); //Le agrego al mensaje, el la informacion de la tropa.
+                    mensajeTropa += `\n\nElige 1-3 para contratar, 0 para cancelar:`; //Termino de agregarle a la cadena el resto del mensaje.
                     let tropaElegidaJugador = prompt(mensajeTropa);
 
                     while(isNaN(tropaElegidaJugador) || tropaElegidaJugador < 0 || tropaElegidaJugador >=4) {
                         mensajeTropa = `Error, introduce una opcion válida\nMercenarios disponibles (oro: ${jugador.getOroJugador})\n1)${tropa1.toString()} -> ${esContratable(jugador.getOroJugador, tropa1.costeContratacion)}\n2)${tropa2.toString()} -> ${esContratable(jugador.getOroJugador, tropa2.getCosteContratacion)}\n3)${tropa3.toString()} -> ${esContratable(jugador.getOroJugador, tropa3.getCosteContratacion)}\n\nElige 1-3 para contratar, 0 para cancelar:`;
                         tropaElegidaJugador = parseInt(prompt(mensajeTropa));
                     }
-                        if (tropaElegidaJugador == 1) {
-                            ejercitoJugador.guardaEjercito(tropa1);
-                            jugador.setCambiaOro = (tropa1.getCosteContratacion);
-                        } else if (tropaElegidaJugador == 2) {
-                            ejercitoJugador.guardaEjercito(tropa2);
-                            jugador.setCambiaOro = (tropa2.getCosteContratacion);
-                        } else if (tropaElegidaJugador == 3) {
-                            ejercitoJugador.guardaEjercito(tropa3);
-                            jugador.setCambiaOro = (tropa3.getCosteContratacion);
-                        } 
+                        
+                    //Una vez muestro el mensaje, dependiendo de la opcion que elija lo guardo.
+                    if(jugador.getTropasJugador.length != 5 && tropaElegidaJugador != 0) {
+                        let tropaElegida = tropasAleatorias[tropaElegidaJugador - 1];
+                        jugador.setTropasJugador = tropaElegida;
+                        jugador.setCambiaOro = tropaElegida.getCosteContratacion;
+                    }
 
-                        jugador.setIntentosContratacion = 1;
+                    //Muestro lo que tiene el jugador. PRUEBA.
+                    alert(jugador.getTropasJugador);
+
+                    jugador.setIntentosContratacion = 1;
                 }
                 break;
             
@@ -106,6 +114,27 @@
         }
 
     }
+
+
+    // Si convertimos este fichero en clase, tener en cuenta:
+    // Tendriamos, un contructor donde inicializamos las variables.
+    // Una funcion iniciar juego, que esta funcion tendra llamada a las demas funciones, seria la funcion principal (con la llamada a esta funcion tendria que ejecutarse el juego completo, tiene el mensaje de bienvenida.)
+    // PedirDificultad -> Que devolveria la dificultad que ha elegido el usuario.
+    // Como et VictoriasParaGanar y let recuperacionTexto = jugador.getRecuperacion == true ? 'Si' : 'No'; lo hago a base de respuestas del usuario, tendria que crear una funcion aparte donde controlo esto.
+    // Una funcion MenuPrincipal() donde contenga el menu y a base de la respuesta haga cada una de las 5 opciones en el switch
+    // El switch del menu principal tendria que tener una llamada a cada una de las funciones de cada case.
+    // Cada case del switch se convertiria en una funcion aparte.
+
+    // Ahora lo que quedaria cambiar es: Crear un index.js, donde creo un objeto de la clase juego y por medio de este ibjeto llamo al metodo principal, que es donde estara toda la logica del juego 
+    // y ahora en index.html, tendria que llamar en el type=module a index.js.
+
+    // Ya que trabajamos con arrays donde guardamos las tropas. Podemos utilizar el metodo splice(), para cuando queramos despedir uno de nuestras tropas y no queden huecos.
+    //splice(indice, cuantosElementos, insertarElemento):
+    //*Con el indice indico, cual es el elemento que quiero borrar. (o desde donde quiero modificar el array).
+    //*Con cuantos elementos indico, cuantos elementos quiero eliminar.
+    //*Con insertarElementos, pongo los elementos que quiero insertar en el array, asi sean 2 o 3, los elementos se insertan desde el indice que hemos puesto.
+    //Los ultimos 2 son opcionales. Al utilizar este metodo el array se modifica automaticamente, eliminando el elemento que inique, los elementos restantes se reorganizan y no quedan huecos.
+    //Con splice puedo guardar el elemento que he borrado. Devuelve un array con los elementos borrados.
     
 
 
