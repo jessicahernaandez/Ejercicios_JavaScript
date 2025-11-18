@@ -25,6 +25,7 @@
     let jugador = new Jugador();
     let recuperacionTexto = jugador.getRecuperacion == true ? 'Si' : 'No';
     let numDeCombates = 0;
+    
 
 
     // Menu desplegable con opciones para el jugador
@@ -72,7 +73,7 @@
                     let tropaElegidaJugador = prompt(mensajeTropa);
 
                     while(isNaN(tropaElegidaJugador) || tropaElegidaJugador < 0 || tropaElegidaJugador >=4) {
-                        mensajeTropa = `Error, introduce una opcion válida\nMercenarios disponibles (oro: ${jugador.getOroJugador})\n1)${tropa1.toString()} -> ${esContratable(jugador.getOroJugador, tropa1.costeContratacion)}\n2)${tropa2.toString()} -> ${esContratable(jugador.getOroJugador, tropa2.getCosteContratacion)}\n3)${tropa3.toString()} -> ${esContratable(jugador.getOroJugador, tropa3.getCosteContratacion)}\n\nElige 1-3 para contratar, 0 para cancelar:`;
+                        //Respuesta
                         tropaElegidaJugador = parseInt(prompt(mensajeTropa));
                     }
                         
@@ -91,7 +92,38 @@
                 break;
             
             case 2:
-                alert(`Caso 2`);
+                //Despedir
+                let mensajeDespedir = `Elige índice para despedir (oro: ${jugador.getOroJugador})\n`;
+                //Ahora al mensaje agrego la informacion de las tropas
+                jugador.getTropasJugador.forEach((tropa,indice) => mensajeDespedir += `#${indice + 1}: ${tropa.getNombre} (ATK ${tropa.getAtaque} PVs ${tropa.getPuntosVida}/${tropa.getPuntosVidaMax})\n`);
+
+                //Ahora, como no siempre habran 5 tropas, tengo que mostrar el vacia de las demas
+                let tropasVacias = 5 - jugador.getTropasJugador.length;
+
+                //A base de esa cantidad, agrego al mensaje por medio de un for, las unidades vacias.
+                for(let unidadVacia=jugador.getTropasJugador.length + 1;unidadVacia<=5;unidadVacia++) {
+                    mensajeDespedir += `#${unidadVacia}: [vacío]\n`;
+                }
+
+                //Y por ultimo concateno la ultima linea del mensaje.
+                mensajeDespedir += `0 para cancelar:`;
+                let respuestaDespedir = parseInt(prompt(mensajeDespedir));
+
+                while(isNaN(respuestaDespedir) || respuestaDespedir < 0 || respuestaDespedir > 5) {
+                    //Mensaje
+                    mensajeDespedir = `Elige índice para despedir (oro: ${jugador.getOroJugador})\n`;
+                    jugador.getTropasJugador.forEach((tropa,indice) => mensajeDespedir += `#${indice + 1}: ${tropa.getNombre} (ATK ${tropa.getAtaque} PVs ${tropa.getPuntosVida}/${tropa.getPuntosVidaMax})\n`);
+                    tropasVacias = 5 - jugador.getTropasJugador.length;
+                    for(let unidadVacia=jugador.getTropasJugador.length + 1;unidadVacia<=5;unidadVacia++) {
+                        mensajeDespedir += `#${unidadVacia}: [vacío]\n`;
+                    }
+                    mensajeDespedir += `0 para cancelar:`;
+                    //Respuesta
+                    respuestaDespedir = parseInt(prompt(mensajeDespedir));
+                }
+
+                //Una vez hecha las comprobaciones.
+
                 break;
 
             case 3:
