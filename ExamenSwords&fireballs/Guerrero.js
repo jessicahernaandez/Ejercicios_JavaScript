@@ -31,4 +31,6 @@ export class Guerrero extends TipoUnidad {
         super.recuperarse(); //LLamo al metodo recuperarse del Padre.
         this.ataquesConcentrados = 3;
     }
+
+    //Necesario sobreescribirlo??.
 }

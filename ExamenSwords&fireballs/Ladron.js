@@ -16,8 +16,8 @@ export class Ladron extends TipoUnidad {
     recibirDaño (dañoRival) {
 
         if(this.esquivas > 0) {
-            let probabilidad = Math.random(); //Como Math.random saca numeros entre 0 (incluido) y 1 (excluido), entonces no necesitamos poner mas numeros.
-            if(probabilidad <= 0.35) {
+            let probabilidad = Math.floor(Math.random() * 100) + 1; //Como Math.random saca numeros entre 0 (incluido) y 1 (excluido), entonces no necesitamos poner mas numeros.
+            if(probabilidad <= 35) {
                 this.esquivas--;
             } else { //Si no saca la probabilidad 0,35 o menos, recibe el daño.
                 super.recibirDaño(dañoRival);

@@ -42,12 +42,22 @@ export class TipoUnidad {
     }
 
     //Metodos GETTERS
-    get nombre () {
+    get getNombre () {
         return this.nombre;
     }
 
-    get puntosVida () {
+    get getPuntosVida () {
         return this.puntosDeVida;
+    }
+
+    get getCosteContratacion () {
+        return this.costeContratacion;
+    }
+
+
+    //Metodo toString, que podran sobreescribir las demas clases.
+    toString () {
+        return `${this.getNombre} | ATK ${this.ataque} | PVs ${this.getPuntosVida} | Coste ${this.getCosteContratacion}`;
     }
 
 }
