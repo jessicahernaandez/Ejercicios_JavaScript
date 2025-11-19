@@ -48,6 +48,10 @@ export class Jugador {
         }
     }
 
+    set sumaOro (sumaOro) {
+        this.oroJugador += sumaOro;
+    }
+
     set setCambiaVictorias (cambioVictorias) {
         this.victorias = cambioVictorias;
     }
@@ -67,5 +71,7 @@ export class Jugador {
     set setTropasJugador (nuevaTropa) {
         this.tropasJugador.push(nuevaTropa);
     }
+
+    
 
 }

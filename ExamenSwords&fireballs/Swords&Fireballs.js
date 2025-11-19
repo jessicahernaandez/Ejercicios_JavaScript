@@ -43,7 +43,7 @@
 
         switch(accionJugador) {
             case 1:
-                //Contratar.
+                //Contratar. //Controlar el flujo, que el usuario no se pueda salir, hasta que cumpla una de estas funciones. Que siga en el menu.
                 //Comprobaciones para saber si puede contratar a tropa en su ejercito.
                 if (jugador.getOroJugador < 1000) {
                     alert(`Necesitas al menos 1000 de oro para ver mercenarios.`);
@@ -73,6 +73,8 @@
                     let tropaElegidaJugador = prompt(mensajeTropa);
 
                     while(isNaN(tropaElegidaJugador) || tropaElegidaJugador < 0 || tropaElegidaJugador >=4) {
+                        //Mensaje repetido.
+                        
                         //Respuesta
                         tropaElegidaJugador = parseInt(prompt(mensajeTropa));
                     }
@@ -93,37 +95,46 @@
             
             case 2:
                 //Despedir
-                let mensajeDespedir = `Elige índice para despedir (oro: ${jugador.getOroJugador})\n`;
-                //Ahora al mensaje agrego la informacion de las tropas
-                jugador.getTropasJugador.forEach((tropa,indice) => mensajeDespedir += `#${indice + 1}: ${tropa.getNombre} (ATK ${tropa.getAtaque} PVs ${tropa.getPuntosVida}/${tropa.getPuntosVidaMax})\n`);
-
-                //Ahora, como no siempre habran 5 tropas, tengo que mostrar el vacia de las demas
-                let tropasVacias = 5 - jugador.getTropasJugador.length;
-
-                //A base de esa cantidad, agrego al mensaje por medio de un for, las unidades vacias.
-                for(let unidadVacia=jugador.getTropasJugador.length + 1;unidadVacia<=5;unidadVacia++) {
-                    mensajeDespedir += `#${unidadVacia}: [vacío]\n`;
-                }
-
-                //Y por ultimo concateno la ultima linea del mensaje.
-                mensajeDespedir += `0 para cancelar:`;
-                let respuestaDespedir = parseInt(prompt(mensajeDespedir));
-
-                while(isNaN(respuestaDespedir) || respuestaDespedir < 0 || respuestaDespedir > 5) {
-                    //Mensaje
-                    mensajeDespedir = `Elige índice para despedir (oro: ${jugador.getOroJugador})\n`;
+                if(jugador.getTropasJugador.length > 0) {
+                    let mensajeDespedir = `Elige índice para despedir (oro: ${jugador.getOroJugador})\n`;
+                    //Ahora al mensaje agrego la informacion de las tropas
                     jugador.getTropasJugador.forEach((tropa,indice) => mensajeDespedir += `#${indice + 1}: ${tropa.getNombre} (ATK ${tropa.getAtaque} PVs ${tropa.getPuntosVida}/${tropa.getPuntosVidaMax})\n`);
-                    tropasVacias = 5 - jugador.getTropasJugador.length;
+
+                    //Ahora, como no siempre habran 5 tropas, tengo que mostrar el vacia de las demas
+                    let tropasVacias = 5 - jugador.getTropasJugador.length;
+
+                    //A base de esa cantidad, agrego al mensaje por medio de un for, las unidades vacias.
                     for(let unidadVacia=jugador.getTropasJugador.length + 1;unidadVacia<=5;unidadVacia++) {
                         mensajeDespedir += `#${unidadVacia}: [vacío]\n`;
                     }
+
+                    //Y por ultimo concateno la ultima linea del mensaje.
                     mensajeDespedir += `0 para cancelar:`;
-                    //Respuesta
-                    respuestaDespedir = parseInt(prompt(mensajeDespedir));
+                    let respuestaDespedir = parseInt(prompt(mensajeDespedir));
+
+                    while(isNaN(respuestaDespedir) || respuestaDespedir < 0 || respuestaDespedir > 5) {
+                        //Mensaje
+                        mensajeDespedir = `Error, introduce una opcion válida.\nElige índice para despedir (oro: ${jugador.getOroJugador})\n`;
+                        jugador.getTropasJugador.forEach((tropa,indice) => mensajeDespedir += `#${indice + 1}: ${tropa.getNombre} (ATK ${tropa.getAtaque} PVs ${tropa.getPuntosVida}/${tropa.getPuntosVidaMax})\n`);
+                        
+                        tropasVacias = 5 - jugador.getTropasJugador.length;
+                        for(let unidadVacia=jugador.getTropasJugador.length + 1;unidadVacia<=5;unidadVacia++) {
+                            mensajeDespedir += `#${unidadVacia}: [vacío]\n`;
+                        }
+                        mensajeDespedir += `0 para cancelar:`;
+                        //Respuesta
+                        respuestaDespedir = parseInt(prompt(mensajeDespedir));
+                    }
+
+                    //Una vez hecha las comprobaciones, procedo a eliminar las tropas.
+                    let tropaDespedida = jugador.getTropasJugador.splice(respuestaDespedir - 1, 1); //Lo elimino y lo guardo. //Me devuelve un array.
+                    alert(tropaDespedida);
+                    //alert(`Unidad retirada. Recuperas ${tropaDespedida[0].getRecuperacion} oro. Oro: ${jugador.sumaOro = tropaDespedida[0].getRecuperacion}`);
+    
+                } else {
+                    alert(`No tienes unidades para despedir.`);
                 }
-
-                //Una vez hecha las comprobaciones.
-
+                
                 break;
 
             case 3:
