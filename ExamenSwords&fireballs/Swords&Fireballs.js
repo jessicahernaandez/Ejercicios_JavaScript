@@ -75,15 +75,22 @@
                     while(isNaN(tropaElegidaJugador) || tropaElegidaJugador < 0 || tropaElegidaJugador >=4) {
                         //Mensaje repetido.
                         
+
                         //Respuesta
                         tropaElegidaJugador = parseInt(prompt(mensajeTropa));
                     }
                         
                     //Una vez muestro el mensaje, dependiendo de la opcion que elija lo guardo.
                     if(jugador.getTropasJugador.length != 5 && tropaElegidaJugador != 0) {
-                        let tropaElegida = tropasAleatorias[tropaElegidaJugador - 1];
-                        jugador.setTropasJugador = tropaElegida;
-                        jugador.setCambiaOro = tropaElegida.getCosteContratacion;
+                        //Verificar que tenga el dinero suficiente para que pueda comprar la tropa.
+                        if(jugador.getOroJugador > tropasAleatorias[tropaElegidaJugador - 1].getCosteContratacion) {
+                            let tropaElegida = tropasAleatorias[tropaElegidaJugador - 1];
+                            jugador.setTropasJugador = tropaElegida;
+                            jugador.setCambiaOro = tropaElegida.getCosteContratacion;
+                        } else {
+                            alert(`No tienes dinero suficiente para comprar esta tropa.`);
+                        }
+                        
                     }
 
                     //Muestro lo que tiene el jugador. PRUEBA.
@@ -112,7 +119,8 @@
                     mensajeDespedir += `0 para cancelar:`;
                     let respuestaDespedir = parseInt(prompt(mensajeDespedir));
 
-                    while(isNaN(respuestaDespedir) || respuestaDespedir < 0 || respuestaDespedir > 5) {
+                    
+                    while(isNaN(respuestaDespedir) && respuestaDespedir < 0 && respuestaDespedir > 5) {
                         //Mensaje
                         mensajeDespedir = `Error, introduce una opcion válida.\nElige índice para despedir (oro: ${jugador.getOroJugador})\n`;
                         jugador.getTropasJugador.forEach((tropa,indice) => mensajeDespedir += `#${indice + 1}: ${tropa.getNombre} (ATK ${tropa.getAtaque} PVs ${tropa.getPuntosVida}/${tropa.getPuntosVidaMax})\n`);
@@ -126,11 +134,13 @@
                         respuestaDespedir = parseInt(prompt(mensajeDespedir));
                     }
 
-                    //Una vez hecha las comprobaciones, procedo a eliminar las tropas.
-                    let tropaDespedida = jugador.getTropasJugador.splice(respuestaDespedir - 1, 1); //Lo elimino y lo guardo. //Me devuelve un array.
-                    alert(tropaDespedida);
-                    //alert(`Unidad retirada. Recuperas ${tropaDespedida[0].getRecuperacion} oro. Oro: ${jugador.sumaOro = tropaDespedida[0].getRecuperacion}`);
-    
+                    if(respuestaDespedir != 0) {
+                        //Una vez hecha las comprobaciones, procedo a eliminar las tropas.
+                        let tropaDespedida = jugador.getTropasJugador.splice(respuestaDespedir - 1, 1); //Lo elimino y lo guardo. //Me devuelve un array.
+                        alert(tropaDespedida);
+                        //alert(`Unidad retirada. Recuperas ${tropaDespedida[0].getRecuperacion} oro. Oro: ${jugador.sumaOro = tropaDespedida[0].getRecuperacion}`);
+                    } 
+                    
                 } else {
                     alert(`No tienes unidades para despedir.`);
                 }
