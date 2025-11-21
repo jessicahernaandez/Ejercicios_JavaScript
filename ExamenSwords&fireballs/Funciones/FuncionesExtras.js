@@ -1,8 +1,8 @@
 //Fichero con funciones que ocuparemos en el fichero principal del juego.
-import { Guerrero } from "./Guerrero.js";
-import { Ladron } from "./Ladron.js";
-import { Mago } from "./Mago.js";
-import { Jugador } from "./Jugador.js";
+import { Guerrero } from "../Clases/Guerrero.js";
+import { Ladron } from "../Clases/Ladron.js";
+import { Mago } from "../Clases/Mago.js";
+import { Jugador} from "../Clases/Jugador.js";
 
 export function generarTropa () { //Devuelve 1 tropa por cada vez que se llama.
 
@@ -28,4 +28,6 @@ export function esContratable (oroJugador, CosteTropa) {
 }
 
 // La clase ejercito tenia una funcion que guardaba las tropas, por si la necesito mas tarde.
+
+
 

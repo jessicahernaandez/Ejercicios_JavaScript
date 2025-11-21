@@ -13,6 +13,7 @@ export class Jugador {
         this.intentosContratar = 6;
         this.recuperacion = false;
         this.tropasJugador = [];
+        this.maxTropas = 5;
     }
 
     //GETTERS
@@ -40,8 +41,12 @@ export class Jugador {
         return this.tropasJugador;
     }
 
+    get getMaxTropas () {
+        return this.maxTropas;
+    }
+
     //SETTERS
-    set setCambiaOro (cambioOro) {
+    set setRestaOro (cambioOro) {
         this.oroJugador -= cambioOro;
         if(this.oroJugador < 0) {
             this.oroJugador = 0;
