@@ -47,6 +47,4 @@ export class Guerrero extends TipoUnidad {
         this.ataquesConcentrados = nuevoAtaque;
     }
 
-    // Un metodo tipo toString() pero para el combate, controla si existe 
-    // una ventaja de tipo, de ser asi
 }

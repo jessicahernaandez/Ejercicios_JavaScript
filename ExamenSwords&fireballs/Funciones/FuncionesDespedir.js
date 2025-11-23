@@ -26,7 +26,6 @@ export function despedirTropas(jugador) {
     return tropaDespedida;
 }
 
-
 // Funcion que muestra el menu al usuario de las tropas que tiene
 // para que pueda despedir alguna de elllas.
 // Devuelve la respuesta del jugador

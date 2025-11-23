@@ -98,16 +98,17 @@ export function combatir (jugador) {
     let dineroGanado = tropasDerrotadasJugador * 500;
     if (tieneUnidadesConVida(jugador.getTropasJugador)) {
         mensajeGanador = `¡Has ganado el combate! + ${dineroGanado} oro. (Unidades CPU derrotadas: ${tropasDerrotadasJugador})`;
-        jugador.setSumaOro = dineroGanado;
         jugador.setCambiaVictorias = 1;
     } else {
-        mensajeGanador = `¡CPU ha ganado el combate! Mejor suerte la proxima.\nHas recibido ${dineroGanado} oro por cada unidad derrotada.\n`;
+        mensajeGanador = `¡CPU ha ganado el combate! Mejor suerte la proxima.\nHas recibido ${dineroGanado} oro por las unidades derrotadas.\n`;
         mensajeGanador += `(Unidades CPU derrotadas: ${tropasDerrotadasJugador})`;
         jugador.setCambiaDerrotas = 1;
     }
 
     alert(mensajeGanador);
-    jugador.setUsoRecuperacion = true; //Una vez terminado el combate puede hacer una recuperacion.
+    jugador.setSumaOro = dineroGanado; //Una vez terminado el combate puede hacer una recuperacion.
+    jugador.setUsoRecuperacion = true; // Gane o pierda recibe dinero
+    jugador.restaurarIntentosContratacion = 6; //Volver a poner los intentos a 6.
 
 }
 
@@ -146,6 +147,8 @@ export function muestraTropasCombatir (jugador, tropasAleatoriasCPU) {
     //Se tiene que pasar la informacion que tiene sobre las tropas de la CPU para concatenarlo al mensaje.
     mensajeCombatir += `\nLa CPU tiene ${tropasAleatoriasCPU.length} unidades`;
     alert(mensajeCombatir);
+
+    // Le muestro las tropas de jugador
     alert(tropasAleatoriasCPU);
 }
 

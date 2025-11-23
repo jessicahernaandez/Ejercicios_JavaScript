@@ -68,10 +68,10 @@ export class TipoUnidad {
     // ** Falta comprobar mas adelante como puedo llamar a este metodo, o como puedo asegurarme que ya han combatido.
     recuperarse () { // ??? Se recuperan a base de la vida max, reemplazando su valor o se recuperan el 70% a partir de la vida que tenian.
         this.puntosDeVida += this.puntosDeVidaMax * 0.70;
-        this.puntosDeVida.toFixed(2); // Para que se redondee a 2 decimales.
         if(this.puntosDeVida > this.puntosDeVidaMax) {
             this.puntosDeVida = this.puntosDeVidaMax;
         }
+        this.puntosDeVida = parseFloat(this.puntosDeVida.toFixed(2)); // Para que se redondee a 2 decimales.
         this.ko = false; //Esta otra vez con vida.
     }
 

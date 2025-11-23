@@ -77,5 +77,9 @@ export class Jugador {
     set setUsoRecuperacion (trueFalse) {
         this.usoRecuperacion = trueFalse;
     }
+
+    set restaurarIntentosContratacion (intentos) {
+        this.intentosContratar = intentos;
+    }
     
 }
