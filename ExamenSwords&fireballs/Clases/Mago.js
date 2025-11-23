@@ -10,6 +10,7 @@ export class Mago extends TipoUnidad {
 
         //Habilidad especial
         this.bolaDeFuego = 1;
+        this.habilidadEspecial = "Bola de Fuego";
     }
 
     //Sobreescribimos el metodo atacar, gracias a su habilidad especial
@@ -30,8 +31,12 @@ export class Mago extends TipoUnidad {
     }
 
     //METODOS GET Y SET DE LA HABILIDAD ESPECIAL.
-    get getBolaFuego () {
+    get getCuantaHabilidadEspecial () {
         return this.bolaDeFuego;
+    }
+
+    get getNombreHabilidad () {
+        return this.habilidadEspecial;
     }
 
     set setBolaFuego (nuevoValor) {

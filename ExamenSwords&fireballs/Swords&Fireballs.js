@@ -1,12 +1,11 @@
 
     // Importaciones de las clases de Unidades.
-    import { Guerrero } from "./Clases/Guerrero.js";
-    import { Ladron } from "./Clases/Ladron.js";
-    import { Mago } from "./Clases/Mago.js";
-    import { Jugador} from "./Clases/Jugador.js";
-    import { esContratable, generarTropa } from "./Funciones/FuncionesExtras.js";
-    import { contratarTropas, puedeComprar, tropasMostrar, menuTropasElegir } from "./Funciones/FuncionesContratar.js";
-    import { despedirTropas, menuDespedir } from "./Funciones/FuncionesDespedir.js";
+    import { Jugador } from "./Clases/Jugador.js";
+    import { contratarTropas } from "./Funciones/FuncionesContratar.js";
+    import { despedirTropas } from "./Funciones/FuncionesDespedir.js";
+    import { combatir, tieneUnidadesConVida } from "./Funciones/FuncionesCombatir.js";
+    import { mostrarEstado } from "./Funciones/FuncionesEstado.js";
+    import { recuperacionTropas } from "./Funciones/FuncionesRecuperacion.js";
 
     
     //*******Mensaje de Bienvenida******//
@@ -26,19 +25,18 @@
     let VictoriasParaGanar = respuestaDificultad == "dificil" ? 4 : 2; //Nos referimos a cada partida, es decir, necesita derrotar x tropas para ganar.
     let DerrotasParaPerder = 2; // Tropas derrotadas.
     let jugador = new Jugador();
-    let recuperacionTexto = jugador.getRecuperacion == true ? 'Si' : 'No';
-    let numDeCombates = 0;
 
     // Menu desplegable con opciones para el jugador
     // Dependiendo de la opcion que haya elegido el jugador, haremos x accion.
-    while(jugador.getDerrotas != DerrotasParaPerder || jugador.getVictorias != VictoriasParaGanar || (jugador.getIntentosContratacion != 0 && jugador.getTropasJugador.length == 0)) { //Mientras dejamos asi, pero nos queda verfificar que si los intentos de contratacion estan a 0 y no tiene ninguna tropa.
+    let salir = false;
+    while(!salir && jugador.getDerrotas < DerrotasParaPerder && jugador.getVictorias < VictoriasParaGanar && !(jugador.getIntentosContratacion === 0 && jugador.getTropasJugador.length == 0)) { //Mientras dejamos asi, pero nos queda verfificar que si los intentos de contratacion estan a 0 y no tiene ninguna tropa.
 
-        let menuAcciones = `Oro ${jugador.getOroJugador} | V ${jugador.getVictorias} D ${jugador.getDerrotas}\n\nIntentos contratar restantes: ${jugador.getIntentosContratacion} | Recuperación: ${recuperacionTexto}\n\nElige una acción:\n1) Contratar\n2) Despedir\n3) Combatir\n4) Recuperarse\n5) Ver estado detallado\n0) Salir`;
+        let menuAcciones = `Oro ${jugador.getOroJugador} | V ${jugador.getVictorias} D ${jugador.getDerrotas}\n\nIntentos contratar restantes: ${jugador.getIntentosContratacion} | Recuperación: ${jugador.getUsoRecuperacion === true ? 'Si' : 'No'}\n\nElige una acción:\n1) Contratar\n2) Despedir\n3) Combatir\n4) Recuperarse\n5) Ver estado detallado\n0) Salir`;
         let accionJugador = parseInt(prompt(menuAcciones));
 
         // Comprobacion de que la respuesta del Jugador este entre en rango de opciones.
         while(isNaN(accionJugador) || accionJugador < 0 || accionJugador > 5) {
-            menuAcciones = `Error, introduce una opción valida.\nOro ${jugador.getOroJugador} | V ${jugador.getVictorias} / D ${jugador.getDerrotas}\nIntentos contratar restantes: ${jugador.getIntentosContratacion} | Recuperación: ${recuperacionTexto}\n\n\nElige una acción:\n1) Contratar\n2) Despedir\n3) Combatir\n4) Recuperarse\n5) Ver estado detallado\n0) Salir`;
+            menuAcciones = `Error, introduce una opción valida.\nOro ${jugador.getOroJugador} | V ${jugador.getVictorias} / D ${jugador.getDerrotas}\nIntentos contratar restantes: ${jugador.getIntentosContratacion} | Recuperación: ${jugador.getUsoRecuperacion === true ? 'Si' : 'No'}\n\n\nElige una acción:\n1) Contratar\n2) Despedir\n3) Combatir\n4) Recuperarse\n5) Ver estado detallado\n0) Salir`;
             accionJugador = parseInt(prompt(menuAcciones));
         } 
 
@@ -59,19 +57,35 @@
                 break;
 
             case 3:
-                alert(`Caso 3`);
+                
+                //PRUEBA jugador.getTropasJugador.forEach((tropa, indice) => tropa.setKO = true);
+                //Si el jugador tiene ejercito y al menos una unidad disponible con > O PVs 
+                if(jugador.getTropasJugador.length != 0 && tieneUnidadesConVida(jugador.getTropasJugador)) {
+                    combatir(jugador);
+                } else {
+                    alert(`Necesitas al menos una unidad con PVs > 0 para combatir`);
+                }
+                
                 break;
 
             case 4:
-                alert(`Caso 4`);
+                if ((jugador.getVictorias != 0 || jugador.getDerrotas != 0) && jugador.getUsoRecuperacion == true) {
+                    // Una vez dentro, volvemos a poner el uso de Recuperacion en false.
+                    jugador.setUsoRecuperacion = false;
+                    recuperacionTropas(jugador);
+
+                } else {
+                    alert(`La recuperación solo está disponible después de un combate y una sola vez.`);
+                }
                 break;
 
             case 5:
-                alert(`Caso 5`);
+                let mensajeEstado = mostrarEstado(jugador);
+                alert(mensajeEstado);
                 break;
-
             case 0:
-                alert(`Caso 6`);
+                alert(`Hasta la proxima`);
+                salir = true;
                 break;
 
             default:
@@ -79,11 +93,17 @@
 
     }
 
+    // Una vez salga de este while de menu de acciones, es porque ha ganado, perdido o se ha quedado sin intentos de contratacion.
+    if (jugador.getVictorias === VictoriasParaGanar) {
+        alert(`Has ganado la partida`);
+    } else if (jugador.getDerrotas === DerrotasParaPerder) {
+        alert(`La CPU ha ganado la partida`);
+    } else if (jugador.getIntentosContratacion === 0 && jugador.getTropasJugador.length == 0) {
+        alert(`Has gastado todos los intentos y no tienes tropas. Creo que esto no es lo tuyo...`);
+    }
+
+
     //*****************FUNCIONES DE ESTE FICHERO***********************//
-
-
-
-
     // Si convertimos este fichero en clase, tener en cuenta:
     // Tendriamos, un contructor donde inicializamos las variables.
     // Una funcion iniciar juego, que esta funcion tendra llamada a las demas funciones, seria la funcion principal (con la llamada a esta funcion tendria que ejecutarse el juego completo, tiene el mensaje de bienvenida.)

@@ -14,6 +14,7 @@ export class Jugador {
         this.recuperacion = false;
         this.tropasJugador = [];
         this.maxTropas = 5;
+        this.usoRecuperacion = false; //No podra hacer uso de la recuperacion a menos que haya hecho un combate y una sola vez.
     }
 
     //GETTERS
@@ -33,16 +34,16 @@ export class Jugador {
         return this.intentosContratar;
     }
 
-    get getRecuperacion () {
-        return this.recuperacion;
-    }
-
     get getTropasJugador () {
         return this.tropasJugador;
     }
 
     get getMaxTropas () {
         return this.maxTropas;
+    }
+
+    get getUsoRecuperacion () {
+        return this.usoRecuperacion;
     }
 
     //SETTERS
@@ -53,30 +54,28 @@ export class Jugador {
         }
     }
 
-    set sumaOro (sumaOro) {
+    set setSumaOro (sumaOro) {
         this.oroJugador += sumaOro;
     }
 
     set setCambiaVictorias (cambioVictorias) {
-        this.victorias = cambioVictorias;
+        this.victorias += cambioVictorias;
     }
 
     set setCambiaDerrotas (cambioDerrotas) {
-        this.derrotas = cambioDerrotas;
+        this.derrotas += cambioDerrotas;
     }
 
     set setIntentosContratacion (cambioContratacion) {
         this.intentosContratar -= cambioContratacion; 
     }
 
-    set setRecuperacion (cambioRecuperacion) {
-        this.recuperacion = cambioRecuperacion;
-    }
-
     set setTropasJugador (nuevaTropa) {
         this.tropasJugador.push(nuevaTropa);
     }
 
+    set setUsoRecuperacion (trueFalse) {
+        this.usoRecuperacion = trueFalse;
+    }
     
-
 }

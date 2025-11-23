@@ -18,7 +18,8 @@ export function contratarTropas (jugador) {
     while(seguirContratando) {
                     
         // Si alguna verificacion falla, entonces no puede seguir contratando.
-        if(!puedeComprar(jugador)) {
+        let cantidadMaxTropas = 5;
+        if(!puedeComprar(jugador, cantidadMaxTropas)) {
             seguirContratando = false;
         } else { 
             //Genero la cantidad de tropas que queremos mostrar
@@ -37,7 +38,7 @@ export function contratarTropas (jugador) {
                 alert(`La opcion que has introducido es incorrecta. Has perdido un intento de contratacion.\nIntentos restantes: ${jugador.getIntentosContratacion}`);
             } else {
                 //Una recibida una opcion, dependiendo de la que elija lo guardo.
-                if(jugador.getTropasJugador.length != 5 && tropaElegidaJugador != 0) {
+                if(jugador.getTropasJugador.length != cantidadMaxTropas && tropaElegidaJugador != 0) {
                     //Verificar que tenga el dinero suficiente para que pueda comprar la tropa.
                     if(jugador.getOroJugador >= tropasAleatorias[tropaElegidaJugador - 1].getCosteContratacion) {
                         let tropaElegida = tropasAleatorias[tropaElegidaJugador - 1];
@@ -61,7 +62,7 @@ export function contratarTropas (jugador) {
 // Funcion que realiza las comprobaciones para que el usuario pueda mantenerse en el
 // menu de contratacion, devuelve true en caso de que pueda seguir en menu, de lo contrario false.
 //*****Paso como parametro el objeto jugador, ya que necesitamos acceder a sus atributos.****//
-export function puedeComprar(jugador) {
+export function puedeComprar(jugador, maxTropas) {
 
     let puedeRealizarlo = true;
 
@@ -72,7 +73,7 @@ export function puedeComprar(jugador) {
     } else if (jugador.getIntentosContratacion == 0) {
         alert(`Ya has agotado los intentos de contratación.`);
         puedeRealizarlo = false;
-    } else if (jugador.getTropasJugador.length == 5) { 
+    } else if (jugador.getTropasJugador.length == maxTropas) { 
         alert(`Ya no tienes huecos disponibles en tu ejercito.`);
         puedeRealizarlo = false;
     }

@@ -18,7 +18,7 @@ export function despedirTropas(jugador) {
         tropaDespedida = jugador.getTropasJugador.splice(respuestaDespedir - 1, 1); //Lo elimino y lo guardo. //Splice me devuelve un array.
         alert(tropaDespedida[0]);
         //Sumo el oro al jugador
-        jugador.sumaOro = tropaDespedida[0].getRetirarlo;
+        jugador.setSumaOro = tropaDespedida[0].getRetirarlo;
         alert(`Unidad retirada. Recuperas ${tropaDespedida[0].getRetirarlo} oro. Oro: ${jugador.getOroJugador}`);
     }
     

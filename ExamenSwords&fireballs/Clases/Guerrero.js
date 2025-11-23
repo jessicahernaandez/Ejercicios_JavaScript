@@ -11,6 +11,7 @@ export class Guerrero extends TipoUnidad {
 
         //Guerrero tiene una habilidad especial
         this.ataquesConcentrados = 3;
+        this.habilidadEspecial = "Ataque Concentrado";
     }
 
     //Sobreescribimos el metodo atacar de la clase Padre gracias a su habilidad especial.
@@ -34,11 +35,18 @@ export class Guerrero extends TipoUnidad {
 
     //Como hereda todos los get y set de la clase Padre, solo escribire el get y set de la habilidad especial.
     //GET Y SET HABILIDAD ESPECIAL.
-    get getAtaquesConcentrados () {
+    get getCuantaHabilidadEspecial () {
         return this.ataquesConcentrados;
+    }
+
+    get getNombreHabilidad () {
+        return this.habilidadEspecial;
     }
 
     set setAtaqueConcentrado (nuevoAtaque) {
         this.ataquesConcentrados = nuevoAtaque;
     }
+
+    // Un metodo tipo toString() pero para el combate, controla si existe 
+    // una ventaja de tipo, de ser asi
 }

@@ -10,6 +10,7 @@ export class Ladron extends TipoUnidad {
 
         //Habilidad especial de los ladrones.
         this.esquivas = 2;
+        this.habilidadEspecial = "Esquiva";
     }
 
     //En esta clase sobreescribimos el metodo de recibir daño, gracias a sus habilidad especial de esquivar.
@@ -36,8 +37,12 @@ export class Ladron extends TipoUnidad {
 
     //Igual que las otras clases, hereda los GET y SET de la clase Padre, escribo solo el de la habilidad especial.
     //METODOS GET Y SET DE LA HABILIDAD ESPECIAL
-    get getEsquivas () {
+    get getCuantaHabilidadEspecial () {
         return this.esquivas;
+    }
+
+    get getNombreHabilidad () {
+        return this.habilidadEspecial;
     }
 
     set setEsquivas (nuevoValor) {
