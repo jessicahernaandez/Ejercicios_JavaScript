@@ -24,6 +24,7 @@ export function recuperacionTropas (jugador) {
     jugador.setUsoRecuperacion = false;
 
     // Mostramos un mensaje para ver el cambio
+    jugador.restaurarIntentosContratacion = 6; //Volver a poner los intentos a 6.
     let tropasDespues = mostrarEstado(jugador);
     alert(tropasDespues);
     

@@ -104,7 +104,6 @@ export function combatir (jugador) {
     alert(mensajeGanador); 
     jugador.setSumaOro = dineroGanado; // Gane o pierda recibe dinero
     jugador.setUsoRecuperacion = true; //Una vez terminado el combate puede hacer una recuperacion.
-    jugador.restaurarIntentosContratacion = 6; //Volver a poner los intentos a 6.
 
 }
 

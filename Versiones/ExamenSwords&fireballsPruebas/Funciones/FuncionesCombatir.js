@@ -5,6 +5,11 @@ import { tropasMostrar } from "./FuncionesContratar.js";
 /************************ CASE 3 -> COMBATIR *************************/
 // Funcion que contiene la logica de los turnos y maneja los mensajes informativos de cuando 
 // el usuario tiene ventaja de tipo o habiidades especiales activas.
+
+//***************DOS NUEVAS FUNCIONALIDADES,*****************/
+/*********************** QUE EMPIECE LA RONDA QUIEN A GANADO LA ANTERIOR.*********************************/
+/*********************** QUE EMPIECE LA RONDA QUIEN A PERDIDO LA ANTERIOR.*********************************/
+/*********************** QUE EMPIECE PERSONA ALEATORIA.*********************************/
 export function combatir (jugador) {
 
     //Generamos las tropas Aleatorias de la CPU con la cantidad aleatoria entre 3 y 5,
