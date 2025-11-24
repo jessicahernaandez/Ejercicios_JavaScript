@@ -1,19 +1,15 @@
-import { Guerrero } from "../Clases/Guerrero.js";
-import { Ladron } from "../Clases/Ladron.js";
-import { Mago } from "../Clases/Mago.js";
-import { Jugador } from "../Clases/Jugador.js";
-import { esContratable, generarTropa} from "./FuncionesExtras.js";
 import { tropasMostrar } from "./FuncionesContratar.js";
 
 /****************** FUNCIONES DEL MENU PRINCIPAL ***********************/
 
 /************************ CASE 3 -> COMBATIR *************************/
+// Funcion que contiene la logica de los turnos y maneja los mensajes informativos de cuando 
+// el usuario tiene ventaja de tipo o habiidades especiales activas.
 export function combatir (jugador) {
 
     //Generamos las tropas Aleatorias de la CPU con la cantidad aleatoria entre 3 y 5,
     let tropasAleatoriasCPU = generaTropasCPU();
     
-
     //Llamamos a la funcion que muestra el mensaje de las tropas disponibles.
     muestraTropasCombatir(jugador, tropasAleatoriasCPU);
 
@@ -51,7 +47,7 @@ export function combatir (jugador) {
             
             //******** ATAQUE DE LA CPU (Si tiene vida) ********//
             let mensajeRespuesta = "";
-            if (tropaCPU.getKO != true) {
+            if (tropaCPU.getKO != true) { 
           
                 // Lo mismo con la CPU, en el mismo orden llamando a cada funcion correspondiente.
                 let mensajeHabilidadEspecialCPU = habilidadAtacarMensaje(tropaCPU);
@@ -105,9 +101,9 @@ export function combatir (jugador) {
         jugador.setCambiaDerrotas = 1;
     }
 
-    alert(mensajeGanador);
-    jugador.setSumaOro = dineroGanado; //Una vez terminado el combate puede hacer una recuperacion.
-    jugador.setUsoRecuperacion = true; // Gane o pierda recibe dinero
+    alert(mensajeGanador); 
+    jugador.setSumaOro = dineroGanado; // Gane o pierda recibe dinero
+    jugador.setUsoRecuperacion = true; //Una vez terminado el combate puede hacer una recuperacion.
 
 }
 
@@ -130,7 +126,7 @@ export function generaTropasCPU () {
     let rangoMax = 5;
     let cantidad = Math.floor(Math.random() * (rangoMax - rangoMin + 1)) + rangoMin;
 
-    let tropasAleatoriasCPU = tropasMostrar(cantidad);
+    let tropasAleatoriasCPU = tropasMostrar(cantidad); // Esta funcion se encuentra en funciones contratar, la he reutilizado.
 
     return tropasAleatoriasCPU;
 }

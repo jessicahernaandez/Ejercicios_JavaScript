@@ -1,7 +1,3 @@
-import { Guerrero } from "../Clases/Guerrero.js";
-import { Ladron } from "../Clases/Ladron.js";
-import { Mago } from "../Clases/Mago.js";
-import { Jugador} from "../Clases/Jugador.js";
 
 /****************** FUNCIONES DEL MENU PRINCIPAL ***********************/
 
@@ -11,7 +7,7 @@ import { Jugador} from "../Clases/Jugador.js";
 export function despedirTropas(jugador) {
               
     let respuestaDespedir = menuDespedir(jugador);
-    let tropaDespedida = [];
+    let tropaDespedida = []; // Porque el splice te devuelve un array.
 
     if(respuestaDespedir != 0) {
         //Una vez hecha las comprobaciones, procedo a eliminar las tropas.
@@ -45,6 +41,7 @@ export function menuDespedir(jugador) {
 
     let respuestaDespedir = parseInt(prompt(mensajeDespedir));
  
+    // Validacion de respuesta.
     while(isNaN(respuestaDespedir) || respuestaDespedir < 0 || respuestaDespedir > 5) {
         //Mensaje
         mensajeDespedir = `Error, introduce una opcion válida.\nElige índice para despedir (oro: ${jugador.getOroJugador})\n`;

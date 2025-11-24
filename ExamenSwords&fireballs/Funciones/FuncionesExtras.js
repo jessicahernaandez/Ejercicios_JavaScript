@@ -2,7 +2,6 @@
 import { Guerrero } from "../Clases/Guerrero.js";
 import { Ladron } from "../Clases/Ladron.js";
 import { Mago } from "../Clases/Mago.js";
-import { Jugador} from "../Clases/Jugador.js";
 
 export function generarTropa () { //Devuelve 1 tropa por cada vez que se llama.
 

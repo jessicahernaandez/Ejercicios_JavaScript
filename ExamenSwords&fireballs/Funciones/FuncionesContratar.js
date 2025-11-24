@@ -1,9 +1,5 @@
-    // Importaciones de las clases de Unidades.
-    import { Guerrero } from "../Clases/Guerrero.js";
-    import { Ladron } from "../Clases/Ladron.js";
-    import { Mago } from "../Clases/Mago.js";
-    import { Jugador} from "../Clases/Jugador.js";
-    import { esContratable, generarTropa} from "./FuncionesExtras.js";
+// Importaciones de las clases de Unidades.
+import { esContratable, generarTropa} from "./FuncionesExtras.js";
 
 
 /****************** FUNCIONES DEL MENU PRINCIPAL ***********************/
@@ -13,12 +9,12 @@
 // para que el usuario pueda contratar una tropa.
 export function contratarTropas (jugador) {
 
-    //Contratar -> Controlar el flujo, que el usuario no se pueda salir, hasta que cumpla una de las condiciones. Que siga en el menu.
-    let seguirContratando = true;
+    let seguirContratando = true; // Variable con la que controlo para que el usuario se mantenga o no en la tienda.
     while(seguirContratando) {
                     
+        let cantidadMaxTropas = 5; //Tropas Max que puede tener el jugador.
+
         // Si alguna verificacion falla, entonces no puede seguir contratando.
-        let cantidadMaxTropas = 5;
         if(!puedeComprar(jugador, cantidadMaxTropas)) {
             seguirContratando = false;
         } else { 
@@ -84,7 +80,7 @@ export function puedeComprar(jugador, maxTropas) {
     return puedeRealizarlo;
 }
 
-// Funcion que genera las tropas por medio de la funcion generarTropas() mas arriba, pero
+// Funcion que genera las tropas por medio de la funcion generarTropas() en el fichero "FuncionesExtras.js", pero
 // devuelve un array con la cantidad de tropas que pasemos como parametro.
 export function tropasMostrar (cantidad) {
     let tropasAleatorias = [];

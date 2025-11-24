@@ -28,8 +28,10 @@
 
     // Menu desplegable con opciones para el jugador
     // Dependiendo de la opcion que haya elegido el jugador, haremos x accion.
-    let salir = false;
-    while(!salir && jugador.getDerrotas < DerrotasParaPerder && jugador.getVictorias < VictoriasParaGanar && !(jugador.getIntentosContratacion === 0 && jugador.getTropasJugador.length == 0)) { //Mientras dejamos asi, pero nos queda verfificar que si los intentos de contratacion estan a 0 y no tiene ninguna tropa.
+    let salir = false; // Variable para controlar cuando el jugador quiera salir.
+
+    //Mientras el jugador no quiera salir, mientras no tenga las derrotas y las victorias para ganar o perder la partida y no se de el caso de que el jugador no tengo intentos de contratacion y tropas.
+    while(!salir && jugador.getDerrotas < DerrotasParaPerder && jugador.getVictorias < VictoriasParaGanar && !(jugador.getIntentosContratacion === 0 && jugador.getTropasJugador.length == 0)) { 
 
         let menuAcciones = `Oro ${jugador.getOroJugador} | V ${jugador.getVictorias} D ${jugador.getDerrotas}\n\nIntentos contratar restantes: ${jugador.getIntentosContratacion} | Recuperación: ${jugador.getUsoRecuperacion === true ? 'Si' : 'No'}\n\nElige una acción:\n1) Contratar\n2) Despedir\n3) Combatir\n4) Recuperarse\n5) Ver estado detallado\n0) Salir`;
         let accionJugador = parseInt(prompt(menuAcciones));
@@ -42,48 +44,50 @@
 
         switch(accionJugador) {
             case 1:
-                
+                // Se encuentra en el fichero "FuncionesContratar.js";
                 contratarTropas(jugador);
-
                 break;
             case 2:
 
+                // Si el jugador tiene tropas disponibles, entonces llamamos a la funcion.
                 if(jugador.getTropasJugador.length > 0) {
-                    despedirTropas(jugador);
+                    despedirTropas(jugador); // Se encuentra en el fichero "FuncioncesDespedir.js"
                 } else {
                     alert(`No tienes unidades para despedir.`);
                 }
-
                 break;
 
             case 3:
-                
-                //PRUEBA jugador.getTropasJugador.forEach((tropa, indice) => tropa.setKO = true);
+
                 //Si el jugador tiene ejercito y al menos una unidad disponible con > O PVs 
                 if(jugador.getTropasJugador.length != 0 && tieneUnidadesConVida(jugador.getTropasJugador)) {
-                    combatir(jugador);
+                    combatir(jugador); // Se encuentra en el ficher "FuncionesCombatir.js"
                 } else {
                     alert(`Necesitas al menos una unidad con PVs > 0 para combatir`);
-                }
-                
+                } 
                 break;
 
             case 4:
-                if ((jugador.getVictorias != 0 || jugador.getDerrotas != 0) && jugador.getUsoRecuperacion == true) {
-                    recuperacionTropas(jugador);
 
+                // Si el jugador tiene al menos 1 V o 1 D y tiene la recuperacion disponible. 
+                if ((jugador.getVictorias != 0 || jugador.getDerrotas != 0) && jugador.getUsoRecuperacion == true) {
+                    recuperacionTropas(jugador); // Se encuentra en el fichero "FuncionesRecuperacion.js";
                 } else {
                     alert(`La recuperación solo está disponible después de un combate y una sola vez.`);
                 }
                 break;
 
             case 5:
-                let mensajeEstado = mostrarEstado(jugador);
+
+                // Muestro el mensaje del estado de sus tropas.
+                let mensajeEstado = mostrarEstado(jugador); // Se encuentra en "FuncionesEstado.js"
                 alert(mensajeEstado);
                 break;
+
             case 0:
+                // El usuario ha decidido salir.
                 alert(`Hasta la proxima`);
-                salir = true;
+                salir = true; 
                 break;
 
             default:
@@ -100,19 +104,6 @@
         alert(`Has gastado todos los intentos y no tienes tropas. Creo que esto no es lo tuyo...`);
     }
 
-
-    //*****************FUNCIONES DE ESTE FICHERO***********************//
-    // Si convertimos este fichero en clase, tener en cuenta:
-    // Tendriamos, un contructor donde inicializamos las variables.
-    // Una funcion iniciar juego, que esta funcion tendra llamada a las demas funciones, seria la funcion principal (con la llamada a esta funcion tendria que ejecutarse el juego completo, tiene el mensaje de bienvenida.)
-    // PedirDificultad -> Que devolveria la dificultad que ha elegido el usuario.
-    // Como et VictoriasParaGanar y let recuperacionTexto = jugador.getRecuperacion == true ? 'Si' : 'No'; lo hago a base de respuestas del usuario, tendria que crear una funcion aparte donde controlo esto.
-    // Una funcion MenuPrincipal() donde contenga el menu y a base de la respuesta haga cada una de las 5 opciones en el switch
-    // El switch del menu principal tendria que tener una llamada a cada una de las funciones de cada case.
-    // Cada case del switch se convertiria en una funcion aparte.
-
-    // Ahora lo que quedaria cambiar es: Crear un index.js, donde creo un objeto de la clase juego y por medio de este ibjeto llamo al metodo principal, que es donde estara toda la logica del juego 
-    // y ahora en index.html, tendria que llamar en el type=module a index.js.
 
     // Ya que trabajamos con arrays donde guardamos las tropas. Podemos utilizar el metodo splice(), para cuando queramos despedir uno de nuestras tropas y no queden huecos.
     //splice(indice, cuantosElementos, insertarElemento):
