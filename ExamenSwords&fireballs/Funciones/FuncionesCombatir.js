@@ -45,8 +45,8 @@ export function combatir (jugador) {
             // Caso especial ladrón recibiendo daño del Rival
             let mensajeEsquivaCPU = realizarAtaque(tropaCPU, dañoFinal);
 
-            mensajeTurnos += `Tu ${tropaJugador.getNombre} ataca${mensajeHabilidadEspecial} ${mensajeVentaja}: ${dañoFinal} daño -> `;
-            mensajeTurnos += `${mensajeEsquivaCPU} CPU ${tropaCPU.getNombre} queda a ${tropaCPU.getPuntosVida} PVs`;
+            mensajeTurnos += `Tu ${tropaJugador.getNombre} ataca ${mensajeHabilidadEspecial} ${mensajeVentaja}: ${dañoFinal} daño -> `;
+            mensajeTurnos += `${mensajeEsquivaCPU} CPU ${tropaCPU.getNombre} queda a ${tropaCPU.getPuntosVida} PVs\n`;
 
             
             //******** ATAQUE DE LA CPU (Si tiene vida) ********//
@@ -62,7 +62,7 @@ export function combatir (jugador) {
                 // Caso especial ladrón recibiendo daño
                 let mensajeEsquivaJugador = realizarAtaque(tropaJugador, dañoFinalCPU);
 
-                mensajeRespuesta = ` CPU ${tropaCPU.getNombre} responde${mensajeHabilidadEspecialCPU} ${mensajeVentajaCPU}: ${dañoFinalCPU} daño -> `;
+                mensajeRespuesta = `CPU ${tropaCPU.getNombre} responde ${mensajeHabilidadEspecialCPU} ${mensajeVentajaCPU}: ${dañoFinalCPU} daño -> `;
                 mensajeRespuesta += `${mensajeEsquivaJugador} Tu ${tropaJugador.getNombre} queda a ${tropaJugador.getPuntosVida} PVs`;
 
             } else {
@@ -108,7 +108,6 @@ export function combatir (jugador) {
     alert(mensajeGanador);
     jugador.setSumaOro = dineroGanado; //Una vez terminado el combate puede hacer una recuperacion.
     jugador.setUsoRecuperacion = true; // Gane o pierda recibe dinero
-    jugador.restaurarIntentosContratacion = 6; //Volver a poner los intentos a 6.
 
 }
 
@@ -148,8 +147,10 @@ export function muestraTropasCombatir (jugador, tropasAleatoriasCPU) {
     mensajeCombatir += `\nLa CPU tiene ${tropasAleatoriasCPU.length} unidades`;
     alert(mensajeCombatir);
 
-    // Le muestro las tropas de jugador
-    alert(tropasAleatoriasCPU);
+    // Le muestro las tropas de jugador //PRUEBA PARA VER LAS TROPAS RIVALES.
+    let muestraTropasCPU = `Unidades CPU a combatir:\n`;
+    tropasAleatoriasCPU.forEach((tropa, indice) => muestraTropasCPU += `${indice + 1}) ${tropa.getNombre} ATK ${tropa.getAtaque} PVs ${tropa.getPuntosVida}/${tropa.getPuntosVidaMax}\n`);
+    alert(muestraTropasCPU);
 }
 
 // Funcion que devuelve el mensaje de la habilidad especial

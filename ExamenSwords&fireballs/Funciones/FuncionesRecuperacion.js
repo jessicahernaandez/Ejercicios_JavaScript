@@ -20,8 +20,11 @@ export function recuperacionTropas (jugador) {
     // accedan a la funcion que heredan de la clase padre, para que puedan recuperar
     // un 70% de vida.
     jugador.getTropasJugador.forEach((tropa) => tropa.recuperarse());
+    // Una vez dentro, volvemos a poner el uso de Recuperacion en false, despues de haber mostrado el mensaje.
+    jugador.setUsoRecuperacion = false;
 
     // Mostramos un mensaje para ver el cambio
+    jugador.restaurarIntentosContratacion = 6; //Volver a poner los intentos a 6.
     let tropasDespues = mostrarEstado(jugador);
     alert(tropasDespues);
     

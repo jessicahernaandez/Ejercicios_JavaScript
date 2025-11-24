@@ -71,7 +71,8 @@ export class TipoUnidad {
         if(this.puntosDeVida > this.puntosDeVidaMax) {
             this.puntosDeVida = this.puntosDeVidaMax;
         }
-        this.puntosDeVida = parseFloat(this.puntosDeVida.toFixed(2)); // Para que se redondee a 2 decimales.
+        //this.puntosDeVida = parseFloat(this.puntosDeVida.toFixed(2)); // Para que se redondee a 2 decimales. //Puedo ponerlo a parseInt
+        this.puntosDeVida = parseInt(this.puntosDeVida);
         this.ko = false; //Esta otra vez con vida.
     }
 

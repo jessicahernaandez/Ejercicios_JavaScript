@@ -44,15 +44,18 @@ export function contratarTropas (jugador) {
                         let tropaElegida = tropasAleatorias[tropaElegidaJugador - 1];
                         jugador.setTropasJugador = tropaElegida; //Agrego la tropa a las tropas del jugador.
                         jugador.setRestaOro = tropaElegida.getCosteContratacion; //Resto el dinero.
+                        jugador.setIntentosContratacion = 1; //Resto los intentos.
+                        let mensajeTropaCompradas = `Tropas Compradas:\n`;
+                        jugador.getTropasJugador.forEach((tropa,indice) => mensajeTropaCompradas += `${indice + 1}) ${tropa.getNombre} | ATK ${tropa.getAtaque} | PVs ${tropa.getPuntosVida}/${tropa.getPuntosVidaMax}\n`);
+                        alert(mensajeTropaCompradas);
                         } else {
-                            alert(`No tienes dinero suficiente para comprar esta tropa.`);
-                        }
-                        //Muestro lo que tiene el jugador. PRUEBA.
-                        alert(jugador.getTropasJugador);
-                        jugador.setIntentosContratacion = 1;
+                            jugador.setIntentosContratacion = 1;
+                            alert(`No tienes dinero suficiente para comprar esta tropa.\nTus intentos restan. Intentos restantes: ${jugador.getIntentosContratacion}`);
+                        }          
                     } else if (tropaElegidaJugador == 0) { //Si elije la opcion 0, muestro un mensaje informativo y resto los intentos.
+                        seguirContratando = false;
                         jugador.setIntentosContratacion = 1;
-                        alert(`Has elegido la opcion 0. Se generaran nuevas tropas, pero tus intentos de contratacion han restado.\nIntentos restantes: ${jugador.getIntentosContratacion}`);
+                        alert(`Has elegido la opcion 0, sales de la tienda pero tus intentos de contratacion restan. \nIntentos restantes: ${jugador.getIntentosContratacion}`);   
                     }     
             }
         }

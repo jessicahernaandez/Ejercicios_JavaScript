@@ -70,8 +70,6 @@
 
             case 4:
                 if ((jugador.getVictorias != 0 || jugador.getDerrotas != 0) && jugador.getUsoRecuperacion == true) {
-                    // Una vez dentro, volvemos a poner el uso de Recuperacion en false.
-                    jugador.setUsoRecuperacion = false;
                     recuperacionTropas(jugador);
 
                 } else {
