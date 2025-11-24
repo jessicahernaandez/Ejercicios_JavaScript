@@ -5,11 +5,6 @@ import { tropasMostrar } from "./FuncionesContratar.js";
 /************************ CASE 3 -> COMBATIR *************************/
 // Funcion que contiene la logica de los turnos y maneja los mensajes informativos de cuando 
 // el usuario tiene ventaja de tipo o habiidades especiales activas.
-
-//***************DOS NUEVAS FUNCIONALIDADES,*****************/
-/*********************** QUE EMPIECE LA RONDA QUIEN A GANADO LA ANTERIOR.*********************************/
-/*********************** QUE EMPIECE LA RONDA QUIEN A PERDIDO LA ANTERIOR.*********************************/
-/*********************** QUE EMPIECE PERSONA ALEATORIA.*********************************/
 export function combatir (jugador) {
 
     //Generamos las tropas Aleatorias de la CPU con la cantidad aleatoria entre 3 y 5,
@@ -20,7 +15,6 @@ export function combatir (jugador) {
 
     let tropasDerrotadasJugador = 0;
     //Mientras ambos tengan al menos una unidad viva, se realiza el combate
-    let turnoAleatorio = Math.random() < 0.5 ? "Jugador" : "CPU";
     while(tieneUnidadesConVida(jugador.getTropasJugador) && tieneUnidadesConVida(tropasAleatoriasCPU)) {
 
         // Seleccionamos la primer unidad viva del jugador y la primer unidad viva de la CPU.
@@ -33,35 +27,44 @@ export function combatir (jugador) {
         
         // Mientras la tropa del jugador y la tropa de la CPU tengan vida, entonces realizamos los turnos.
         while(tropaJugador.getKO != true && tropaCPU.getKO != true) {
-
-            alert(`Empieza ${turnoAleatorio}`);
-            let mensajeRespuesta = "";
+            
+            // Sacamos las variables necesarias.
             let mensajeTurnos = `TURNO ${numTurnos}\n`;
-            //Dependiendo de haya empezado la primer ronda de manera aleatoria
-            if (turnoAleatorio === "Jugador") {
-                /*******************Llamada al ataque del Jugador**********************/
-                mensajeTurnos += ataqueJugador(tropaJugador, tropaCPU, numTurnos, true);
 
-                //******** ATAQUE DE LA CPU (Si tiene vida) ********//
-                if (tropaCPU.getKO != true) { 
-                    mensajeRespuesta = ataqueCPU(tropaCPU, tropaJugador, numTurnos, false);
+            // Solo poner el nombre en alguno de estos dos casos. Mago o Guerrero.
+            let mensajeHabilidadEspecial = habilidadAtacarMensaje(tropaJugador);
+            let mensajeVentaja = tropaJugador.ventajaTipo(tropaCPU.getNombre) ? '[Ventaja de Tipo]' : '';
 
-                } else {
-                    // Si la tropa no tiene vida es porque el Jugador ha ganado este turno.
-                    // Entonces generamos un mensaje donde informemos.
-                    mensajeRespuesta = ` CPU ${tropaCPU.getNombre} no puede responder (KO)`;
-                }
-            } else if (turnoAleatorio === "CPU") {
+            //********* ATAQUE DEL JUGADOR **********//
+            let dañoFinal = dañoRealizar(tropaJugador, tropaCPU);
                 
-                // Empieza la CPU
-                mensajeTurnos += ataqueCPU(tropaCPU, tropaJugador, numTurnos, true);
+            // Caso especial ladrón recibiendo daño del Rival
+            let mensajeEsquivaCPU = realizarAtaque(tropaCPU, dañoFinal);
 
-                //Responde el jugador si sigue vivo
-                if(tropaJugador.getKO != true) {
-                    mensajeRespuesta = ataqueJugador(tropaJugador, tropaCPU, numTurnos, false);
-                } else {
-                    mensajeRespuesta = `Tropa ${tropaJugador.getNombre} no puede responder (KO)`;
-                }
+            mensajeTurnos += `Tu ${tropaJugador.getNombre} ataca ${mensajeHabilidadEspecial} ${mensajeVentaja}: ${dañoFinal} daño -> `;
+            mensajeTurnos += `${mensajeEsquivaCPU} CPU ${tropaCPU.getNombre} queda a ${tropaCPU.getPuntosVida} PVs\n`;
+
+            
+            //******** ATAQUE DE LA CPU (Si tiene vida) ********//
+            let mensajeRespuesta = "";
+            if (tropaCPU.getKO != true) { 
+          
+                // Lo mismo con la CPU, en el mismo orden llamando a cada funcion correspondiente.
+                let mensajeHabilidadEspecialCPU = habilidadAtacarMensaje(tropaCPU);
+                let mensajeVentajaCPU = tropaCPU.ventajaTipo(tropaJugador.getNombre) ? '[Ventaja de Tipo]' : '';
+
+                let dañoFinalCPU = dañoRealizar(tropaCPU, tropaJugador);
+
+                // Caso especial ladrón recibiendo daño
+                let mensajeEsquivaJugador = realizarAtaque(tropaJugador, dañoFinalCPU);
+
+                mensajeRespuesta = `CPU ${tropaCPU.getNombre} responde ${mensajeHabilidadEspecialCPU} ${mensajeVentajaCPU}: ${dañoFinalCPU} daño -> `;
+                mensajeRespuesta += `${mensajeEsquivaJugador} Tu ${tropaJugador.getNombre} queda a ${tropaJugador.getPuntosVida} PVs`;
+
+            } else {
+                // Si la tropa no tiene vida es porque el Jugador ha ganado este turno.
+                // Entonces generamos un mensaje donde informemos.
+                mensajeRespuesta = ` CPU ${tropaCPU.getNombre} no puede responder (KO)`;
             }
 
             // Uno los dos mensajes.
@@ -72,22 +75,18 @@ export function combatir (jugador) {
             if (tropaCPU.getKO) {
                 turnoGanado = `Tu ${tropaJugador.getNombre}`;
                 tropasDerrotadasJugador++;
-                turnoAleatorio = "CPU";
             }
 
             if (tropaJugador.getKO) {
                 turnoGanado = `CPU ${tropaCPU.getNombre}`;
-                turnoAleatorio = "Jugador";
             }
 
             numTurnos++;
-            mensajeTurnos = "";
         } 
 
         // Si sale del bucle interno es porque alguno se ha quedado sin vida.
         let mensajeFinal = mensajeFinalTurno(tropaJugador, tropaCPU, turnoGanado);
         alert(mensajeFinal);
-        alert(`Este turno lo ha perdido: ${turnoAleatorio} asi que empieza él.`);
     }
 
     // Cuando sale del while principal quiere decir que uno de los 2 se ha quedado sin tropas vivas, entonces decidimos
@@ -214,57 +213,3 @@ function mensajeFinalTurno (tropaJugador, tropaCPU, turnoGanado) {
     return mensajeFinal;
 
 }
-
-// Funcion en la que contiene todo lo necesario al ataque del jugador
-// Para que empiece o no, paso unj boolean que este en true, en caso de que empieza
-function ataqueJugador (tropaJugador, tropaCPU, numTurnos, empieza) {
-
-    // Sacamos las variables necesarias.
-
-    let empiezaOno = empieza ? "ataca" : "responde";
-
-    // Solo poner el nombre en alguno de estos dos casos. Mago o Guerrero.
-    let mensajeHabilidadEspecial = habilidadAtacarMensaje(tropaJugador);
-    let mensajeVentaja = tropaJugador.ventajaTipo(tropaCPU.getNombre) ? '[Ventaja de Tipo]' : '';
-
-    //********* ATAQUE DEL JUGADOR **********//
-    let dañoFinal = dañoRealizar(tropaJugador, tropaCPU);
-                
-    // Caso especial ladrón recibiendo daño del Rival
-    let mensajeEsquivaCPU = realizarAtaque(tropaCPU, dañoFinal);
-
-    let mensajeTurnos = "";
-    mensajeTurnos += `Tu ${tropaJugador.getNombre} ${empiezaOno} ${mensajeHabilidadEspecial} ${mensajeVentaja}: ${dañoFinal} daño -> `;
-    mensajeTurnos += `${mensajeEsquivaCPU} CPU ${tropaCPU.getNombre} queda a ${tropaCPU.getPuntosVida} PVs\n`;
-
-    return mensajeTurnos;
-
-}
-
-
-function ataqueCPU (tropaCPU, tropaJugador, mensajeRespuesta, empieza) {
-    // Lo mismo con la CPU, en el mismo orden llamando a cada funcion correspondiente.
-    let mensajeHabilidadEspecialCPU = habilidadAtacarMensaje(tropaCPU);
-    let mensajeVentajaCPU = tropaCPU.ventajaTipo(tropaJugador.getNombre) ? '[Ventaja de Tipo]' : '';
-
-    let empiezaOno = empieza ? "ataca" : "responde";
-
-    let dañoFinalCPU = dañoRealizar(tropaCPU, tropaJugador);
-
-    // Caso especial ladrón recibiendo daño
-    let mensajeEsquivaJugador = realizarAtaque(tropaJugador, dañoFinalCPU);
-
-    mensajeRespuesta = `CPU ${tropaCPU.getNombre} ${empiezaOno} ${mensajeHabilidadEspecialCPU} ${mensajeVentajaCPU}: ${dañoFinalCPU} daño -> `;
-    mensajeRespuesta += `${mensajeEsquivaJugador} Tu ${tropaJugador.getNombre} queda a ${tropaJugador.getPuntosVida} PVs\n`;
-
-    return mensajeRespuesta;
-}
-
-/* if (numTurnos % 3 === 0) {
-    dañoFinal = Math.floor(dañoFinal * 1.2);
-}
-    
-if (Math.random() < 0.20) {
-    tropaJugador.recibirDaño(10);
-    tropaCPU.recibirDaño(10);
-}*/

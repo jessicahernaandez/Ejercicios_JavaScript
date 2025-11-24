@@ -18,10 +18,6 @@ export function contratarTropas (jugador) {
         if(!puedeComprar(jugador, cantidadMaxTropas)) {
             seguirContratando = false;
         } else { 
-
-            // NUEVA FUNCION, PREGUNTO QUE TROPAS QUIERE //
-            //let queTropa = queTropaQuieres();
-
             //Genero la cantidad de tropas que queremos mostrar
             let cantidadTropas = 3;
 
@@ -86,48 +82,13 @@ export function puedeComprar(jugador, maxTropas) {
 
 // Funcion que genera las tropas por medio de la funcion generarTropas() en el fichero "FuncionesExtras.js", pero
 // devuelve un array con la cantidad de tropas que pasemos como parametro.
-export function tropasMostrar (cantidad, jugador) { // jugador, queTropa
+export function tropasMostrar (cantidad) {
     let tropasAleatorias = [];
 
     //Con el buclo genero las tropas aleatorias y las guardo en el array.
-    //******* NUEVA FUNCIONALIDAD, GENEREN TROPAS QUE NO SEAN REPETIDAS. *******//
-
-    /*
-    let elemento = 0;
-    for(let indice=0;elemento<cantidad;indice++) { 
-        let tropaGenerada = generarTropa();
-        if(tropasAleatorias.every((tropa) => tropa.getNombre != tropaGenerada.getNombre)) {
-            tropasAleatorias.push(tropaGenerada);
-            elemento++;
-        }
-    }*/
-
-    /*// QUE SOLO SALGAN TROPAS CONTRATABLES
-    let elementos = 0;
-    for(let indice=0; elementos < cantidad;indice++) {
-        let tropaGenerada = generarTropa();
-        if(tropaGenerada.getCosteContratacion < jugador.getOroJugador) { //NO TENGO EL SEGUNDO PARAMETRO PUESTO.
-            tropasAleatorias.push(tropaGenerada);
-            elementos++;
-        }
-    }*/
-
-    /*let elementos = 0;
-    for(let indice = 0; elementos < cantidad; indice ++) {
-        let tropaGenerada = generarTropa();
-        let nombreTropa = tropaGenerada.getNombre.toLocaleLowerCase();
-        if(nombreTropa == queTropa) {
-            tropasAleatorias.push(tropaGenerada);
-            elementos++;
-        }
-    }*/
-        
-            //Con el buclo genero las tropas aleatorias y las guardo en el array.
-            for(let indice=0;indice<cantidad;indice++) {
-                tropasAleatorias.push(generarTropa());
-            }
-        
-            return tropasAleatorias;
+    for(let indice=0;indice<cantidad;indice++) {
+        tropasAleatorias.push(generarTropa());
+    }
 
     return tropasAleatorias;
 }
@@ -147,18 +108,4 @@ export function menuTropasElegir (jugador, tropasGeneradas) {
     let tropaElegidaJugador = prompt(mensajeTropa);
 
     return tropaElegidaJugador;
-}
-
-//Nueva Funcion, que el usuario pueda elegir la tropa que quiere que le salgan
-function queTropaQuieres () {
-
-    let mensajeCualQuieres = `Elige la tropa que quieres que te salga:\n1)Mago\n2)Guerrero\n3)Ladron`;
-    let respuesta = prompt(mensajeCualQuieres).toLocaleLowerCase();
-
-    while(!isNaN(respuesta) && (respuesta != "mago" || respuesta != "guerrero" || respuesta != "ladron")) {
-        mensajeCualQuieres = `Error\nElige la tropa que quieres que te salga:\n1)Mago\n2)Guerrero\n3)Ladron`;
-        respuesta = prompt(mensajeCualQuieres).toLocaleLowerCase();
-    }
-
-    return respuesta;
 }
