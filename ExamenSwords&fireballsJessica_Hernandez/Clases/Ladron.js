@@ -11,18 +11,18 @@ export class Ladron extends TipoUnidad {
         //Habilidad especial de los ladrones.
         this.esquivas = 2;
         this.habilidadEspecial = "Esquiva";
+        this.ataque = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
     }
 
     //En esta clase sobreescribimos el metodo de recibir daño, gracias a sus habilidad especial de esquivar.
     recibirDaño (dañoRival) {
-
         if(this.esquivas > 0) {
             let probabilidad = Math.floor(Math.random() * 100) + 1; //genera randoms entre 1 y 100.
             if(probabilidad <= 35) {
                 this.esquivas--;
             } else { //Si no saca la probabilidad 35 o menos, recibe el daño.
                 super.recibirDaño(dañoRival);
-            }
+            }   
         } else {
             //Si ya no tiene mas esquivas, recibe el daño.
             super.recibirDaño(dañoRival);

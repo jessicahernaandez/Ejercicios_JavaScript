@@ -11,6 +11,7 @@ export class Mago extends TipoUnidad {
         //Habilidad especial
         this.bolaDeFuego = 1;
         this.habilidadEspecial = "Bola de Fuego";
+        this.ataque = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
     }
 
     //Sobreescribimos el metodo atacar, gracias a su habilidad especial

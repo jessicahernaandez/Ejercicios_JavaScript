@@ -70,10 +70,15 @@
             case 4:
 
                 // Si el jugador tiene al menos 1 V o 1 D y tiene la recuperacion disponible. 
-                if ((jugador.getVictorias != 0 || jugador.getDerrotas != 0) && jugador.getUsoRecuperacion == true) {
+                if ((jugador.getVictorias != 0 || jugador.getDerrotas != 0) && jugador.getUsoRecuperacion == true && jugador.getOroJugador >= 1000) {
                     recuperacionTropas(jugador); // Se encuentra en el fichero "FuncionesRecuperacion.js";
                 } else {
-                    alert(`La recuperación solo está disponible después de un combate y una sola vez.`);
+                    if(jugador.getOroJugador < 1000) {
+                        alert(`No dispones de oro suficiente para recuperarte. Intenta despedir alguna tropa.`);
+                    } else {
+                        alert(`La recuperación solo está disponible después de un combate y una sola vez.`);
+                    }
+                    
                 }
                 break;
 

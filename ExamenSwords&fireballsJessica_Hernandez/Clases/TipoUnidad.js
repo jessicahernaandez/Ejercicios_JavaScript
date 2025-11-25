@@ -13,7 +13,6 @@ export class TipoUnidad {
     // *El ataque lo incializo dentro del contructor, porque todos tienen un ataque entre 10 y 20.
     constructor (nombre, costeContratacion, gananciaRetirarlo, vidaMin, vidaMax) {
         this.nombre = nombre;
-        this.ataque = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
         this.costeContratacion = costeContratacion;
         this.gananciaRetirarlo = gananciaRetirarlo;
         this.puntosDeVidaMax = Math.floor(Math.random() * (vidaMax - vidaMin + 1)) + vidaMin; //Para poder generar la recuperacion a base de su vida fija.
@@ -43,15 +42,41 @@ export class TipoUnidad {
 
     }
 
+    sistemaClima (climaCombate) {
+
+        let ventajaODesventaja = false;
+
+        let climas = new Map([['Mago', 'Lluvia'], ['Guerrero', 'Viento'], ['Ladron', 'Niebla']]);
+
+        if(climas.get(this.getNombre) === climaCombate) {
+            ventajaODesventaja = true;
+        }
+
+        return ventajaODesventaja;
+    }
+
     // Ahora, a base del metodo anterior, si nos devuelve true, al daño base de la tropa aplicamos
     // lo multiplicamos por 1.5 de daño.
     calcularDañoVentaja (dañoBase, nombreRival) {
 
         if (this.ventajaTipo(nombreRival)) {
             dañoBase *= 1.5;
-        }
+        } 
 
         return dañoBase;
+    }
+
+    calcularVentajaClima(daño, clima) {
+
+        if(this.sistemaClima(clima)) {
+            if(this.getNombre === "Mago") {
+                daño -= daño * 0.2; 
+            } else if (this.getNombre === "Guerrero") {
+                daño += daño * 0.2;
+            } 
+        }
+
+        return daño;
     }
 
     // Metodo recibirDaño, se pasara por parametro el daño que haga la unidad rival, asi, esa cantidad se quita de los puntos de vida.
@@ -66,7 +91,7 @@ export class TipoUnidad {
 
     // Metodo recuperarse, despues de una ronda, cada una de las unidades podran recuperar un 70% de los puntos de vida.
     // ** Falta comprobar mas adelante como puedo llamar a este metodo, o como puedo asegurarme que ya han combatido.
-    recuperarse () { // ??? Se recuperan a base de la vida max, reemplazando su valor o se recuperan el 70% a partir de la vida que tenian.
+    recuperarse () { 
         this.puntosDeVida += this.puntosDeVidaMax * 0.70;
         if(this.puntosDeVida > this.puntosDeVidaMax) {
             this.puntosDeVida = this.puntosDeVidaMax;

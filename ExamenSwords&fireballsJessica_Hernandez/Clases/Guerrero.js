@@ -12,6 +12,7 @@ export class Guerrero extends TipoUnidad {
         //Guerrero tiene una habilidad especial
         this.ataquesConcentrados = 3;
         this.habilidadEspecial = "Ataque Concentrado";
+        this.ataque = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
     }
 
     //Sobreescribimos el metodo atacar de la clase Padre gracias a su habilidad especial.

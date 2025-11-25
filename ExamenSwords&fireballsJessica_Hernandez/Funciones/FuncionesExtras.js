@@ -1,4 +1,5 @@
 //Fichero con funciones que ocuparemos en el fichero principal del juego.
+import { Goblin } from "../Clases/Goblin.js";
 import { Guerrero } from "../Clases/Guerrero.js";
 import { Ladron } from "../Clases/Ladron.js";
 import { Mago } from "../Clases/Mago.js";
@@ -7,14 +8,17 @@ export function generarTropa () { //Devuelve 1 tropa por cada vez que se llama.
 
     let probabilidad = Math.floor(Math.random() * 100) + 1; //Probabilidad entre 0 y 1.
     if(probabilidad <=20) {
-        let tropa1 = new Mago ();
+        let tropa1 = new Goblin ();
         return tropa1;
-    } else if (probabilidad > 20 && probabilidad <=50) {
-        let tropa2 = new Ladron();
+    } else if (probabilidad > 20 && probabilidad <=40) {
+        let tropa2 = new Mago();
         return tropa2;
-    } else {
-        let tropa3 = new Guerrero();
+    } else if (probabilidad > 40 && probabilidad <= 65) {
+        let tropa3 = new Ladron();
         return tropa3;
+    } else {
+        let tropa4 = new Guerrero();
+        return tropa4;
     }
 }
 

@@ -14,7 +14,13 @@ export function combatir (jugador) {
     muestraTropasCombatir(jugador, tropasAleatoriasCPU);
 
     let tropasDerrotadasJugador = 0;
+    let tropasEscapadas = 0; //Si se ha ido un Goblin es una tropa escapada.
     //Mientras ambos tengan al menos una unidad viva, se realiza el combate
+    let clima = ["Sol", "Lluvia", "Niebla", "Viento"];
+    let indiceRan = Math.floor(Math.random() * 3) + 1;
+    let climaTocado = clima[indiceRan];
+    let mensajeClima = climaCombate(climaTocado);
+    alert(mensajeClima);
     while(tieneUnidadesConVida(jugador.getTropasJugador) && tieneUnidadesConVida(tropasAleatoriasCPU)) {
 
         // Seleccionamos la primer unidad viva del jugador y la primer unidad viva de la CPU.
@@ -23,8 +29,7 @@ export function combatir (jugador) {
         let tropaJugador = jugador.getTropasJugador.find((tropa) => tropa.getKO  == false);
         let tropaCPU = tropasAleatoriasCPU.find((tropa) => tropa.getKO == false);
         let numTurnos = 1;
-        let turnoGanado = '';
-        
+        let turnoGanado = '';       
         // Mientras la tropa del jugador y la tropa de la CPU tengan vida, entonces realizamos los turnos.
         while(tropaJugador.getKO != true && tropaCPU.getKO != true) {
             
@@ -36,12 +41,24 @@ export function combatir (jugador) {
             let mensajeVentaja = tropaJugador.ventajaTipo(tropaCPU.getNombre) ? '[Ventaja de Tipo]' : '';
 
             //********* ATAQUE DEL JUGADOR **********//
-            let dañoFinal = dañoRealizar(tropaJugador, tropaCPU);
+            let mensajeClimaJugador = mensajeClimaVentaja(tropaJugador, climaTocado);
+            let dañoFinal = dañoRealizar(tropaJugador, tropaCPU,climaTocado);
                 
             // Caso especial ladrón recibiendo daño del Rival
-            let mensajeEsquivaCPU = realizarAtaque(tropaCPU, dañoFinal);
-
-            mensajeTurnos += `Tu ${tropaJugador.getNombre} ataca ${mensajeHabilidadEspecial} ${mensajeVentaja}: ${dañoFinal} daño -> `;
+            /*************** MODIFICACION ****************/
+            //Caso especial con Goblin.
+            let mensajeEsquivaCPU = realizarAtaque(tropaCPU, dañoFinal, false);
+            let huidaCPU = ``;
+            // Verifico si es el Goblin
+            if(tropaCPU.getNombre === "Goblin") {
+                if (tropaCPU.getNumHuidas == 0) {
+                    huidaCPU = `¡Goblin CPU huye como la sabandija que es!`;
+                    tropasEscapadas++;
+                    tropaCPU.setKO = true;
+                }
+            }
+            
+            mensajeTurnos += `Tu ${tropaJugador.getNombre} ataca ${mensajeHabilidadEspecial} ${mensajeVentaja} ${mensajeClimaJugador}: ${dañoFinal} daño -> `;
             mensajeTurnos += `${mensajeEsquivaCPU} CPU ${tropaCPU.getNombre} queda a ${tropaCPU.getPuntosVida} PVs\n`;
 
             
@@ -52,13 +69,20 @@ export function combatir (jugador) {
                 // Lo mismo con la CPU, en el mismo orden llamando a cada funcion correspondiente.
                 let mensajeHabilidadEspecialCPU = habilidadAtacarMensaje(tropaCPU);
                 let mensajeVentajaCPU = tropaCPU.ventajaTipo(tropaJugador.getNombre) ? '[Ventaja de Tipo]' : '';
+                let mensajeClimaCPU = mensajeClimaVentaja(tropaCPU, climaTocado);
 
-                let dañoFinalCPU = dañoRealizar(tropaCPU, tropaJugador);
+                let dañoFinalCPU = dañoRealizar(tropaCPU, tropaJugador,climaTocado);
 
                 // Caso especial ladrón recibiendo daño
-                let mensajeEsquivaJugador = realizarAtaque(tropaJugador, dañoFinalCPU);
+                let mensajeEsquivaJugador = realizarAtaque(tropaJugador, dañoFinalCPU , true); // Tru si es jugador para cambiar
 
-                mensajeRespuesta = `CPU ${tropaCPU.getNombre} responde ${mensajeHabilidadEspecialCPU} ${mensajeVentajaCPU}: ${dañoFinalCPU} daño -> `;
+                //*************MODIFICACION************/
+                if (tropaJugador.getNombre === "Goblin" && tropaJugador.getNumHuidas === 0) {;
+                    mensajeEsquivaJugador = ` ¡Nuestro goblin huye como la sabandija que es!`; 
+                    tropaJugador.setKO = true;
+                }
+
+                mensajeRespuesta = `CPU ${tropaCPU.getNombre} responde ${mensajeHabilidadEspecialCPU} ${mensajeVentajaCPU} ${mensajeClimaCPU}: ${dañoFinalCPU} daño -> `;
                 mensajeRespuesta += `${mensajeEsquivaJugador} Tu ${tropaJugador.getNombre} queda a ${tropaJugador.getPuntosVida} PVs`;
 
             } else {
@@ -91,15 +115,27 @@ export function combatir (jugador) {
 
     // Cuando sale del while principal quiere decir que uno de los 2 se ha quedado sin tropas vivas, entonces decidimos
     let mensajeGanador = '';
-    let dineroGanado = tropasDerrotadasJugador * 500;
+    let tropasTotales = tropasDerrotadasJugador - tropasEscapadas;
+    let dineroGanado = tropasTotales * 500;
     if (tieneUnidadesConVida(jugador.getTropasJugador)) {
         mensajeGanador = `¡Has ganado el combate! + ${dineroGanado} oro. (Unidades CPU derrotadas: ${tropasDerrotadasJugador})`;
         jugador.setCambiaVictorias = 1;
     } else {
         mensajeGanador = `¡CPU ha ganado el combate! Mejor suerte la proxima.\nHas recibido ${dineroGanado} oro por las unidades derrotadas.\n`;
-        mensajeGanador += `(Unidades CPU derrotadas: ${tropasDerrotadasJugador})`;
+        mensajeGanador += `(Unidades CPU derrotadas: ${tropasTotales})`;
+        mensajeGanador += `(Unidades Escapadas: ${tropasEscapadas})`;
         jugador.setCambiaDerrotas = 1;
     }
+
+    // Tengo que borrar el Goblin del jugador.
+    let indiceBorrar = 0;
+    for(let indice in jugador.getTropasJugador) {
+        if(jugador.getTropasJugador[indice].getNombre === "Goblin" && jugador.getTropasJugador[indice].getNumHuidas === 0) {
+            indiceBorrar = indice;
+            let tropaBorrada = jugador.getTropasJugador.splice(indiceBorrar, 1);
+        }
+    }
+    
 
     alert(mensajeGanador); 
     jugador.setSumaOro = dineroGanado; // Gane o pierda recibe dinero
@@ -170,22 +206,23 @@ export function habilidadAtacarMensaje (tropa) {
 // Y devuelve el daño generado, controlamos el flujo de, que en el caso que exista ventaja
 // se calcula y nos devuelve el valor aumentado, si no existe mensaje simplemente tendremos el
 // mismo valor que el de daño base.
-export function dañoRealizar (tropaDaño, tropaRivalDañar) {
+export function dañoRealizar (tropaDaño, tropaRivalDañar, clima) {
 
     let dañoBase = tropaDaño.atacar(); // FUNCION
     let dañoFinal = tropaDaño.calcularDañoVentaja(dañoBase, tropaRivalDañar.getNombre);
+    let dañoConClima = tropaDaño.calcularVentajaClima(dañoFinal, clima);
 
-    return dañoFinal;
+    return dañoConClima;
 }
 
 // Funcion que realiza el ataque por medio del daño que se pasa como parametro a la tropa enemiga.
 // Pero, tenemos que verificar si la tropa Rival es un ladron, de ser asi, tengo que verificar si ha 
 // tenido la posibilidad de esquivar el daño y devolver un mensaje con esta informacion.
-export function realizarAtaque (tropaDañar, dañoHacer) {
+export function realizarAtaque (tropaDañar, dañoHacer, quienEs) {
 
     let mensajeEsquiva = ""; 
 
-    if (tropaDañar.getNombre === "Ladron") {
+    if (tropaDañar.getNombre === "Ladron" || tropaDañar.getNombre === "Goblin") { // Con esta misma funcion verificamos la tropa Goblin.
         let dañoAntes = tropaDañar.getPuntosVida;
         tropaDañar.recibirDaño(dañoHacer);
         let dañoDespues = tropaDañar.getPuntosVida;
@@ -193,6 +230,12 @@ export function realizarAtaque (tropaDañar, dañoHacer) {
         if(dañoAntes == dañoDespues) {
             mensajeEsquiva= " ¡Esquivado!";
         }
+
+        if (dañoAntes == dañoDespues && tropaDañar.getNombre === "Goblin") {
+            let deQuien = quienEs ? "Nuestro" : "CPU";
+            mensajeEsquiva += ` ${deQuien} goblin prepara la huida (quedan ${tropaDañar.getNumHuidas})`;
+        }
+
     } else {
         tropaDañar.recibirDaño(dañoHacer);
     }
@@ -212,4 +255,34 @@ function mensajeFinalTurno (tropaJugador, tropaCPU, turnoGanado) {
 
     return mensajeFinal;
 
+}
+
+function climaCombate (clima) {
+
+    let mensaje = ``;
+    if(clima === "Sol") {
+        mensaje = `Hace un dia Soleado, buena suerte.`;
+    } else if (clima === "Lluvia") {
+        mensaje = `Hace un día lluvioso. Los magos se debilitan.`;
+    } else if (clima === "Niebla") {
+        mensaje = `Hace mucha niebla. Los ladrones le sacan partido.`;
+    } else if (clima === "Viento") {
+        mensaje = `Hace mucho viento. Los guerreros se fortalecen`;
+    }
+
+    return mensaje;
+}
+
+function mensajeClimaVentaja (tropa,clima) {
+
+    let mensajeVentaja = ``;
+     if (tropa.getNombre === "Mago" && tropa.sistemaClima(clima)) {
+        mensajeVentaja = `[Desventaja clima](-20% daño)`;
+    } else if (tropa.getNombre === "Ladron" && tropa.sistemaClima(clima)) {
+        mensajeVentaja = `[Nuestro ladron con ventaja clima](20% esquiva)`;
+    } else if (tropa.getNombre === "Guerrero" && tropa.sistemaClima(clima)) {
+        mensajeVentaja = `[Ventaja clima] (+10% daño)`;
+    }
+
+    return mensajeVentaja;
 }

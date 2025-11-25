@@ -7,7 +7,9 @@ import { mostrarEstado } from "./FuncionesEstado.js";
 // Funcion principal que tendra toda la logica del caso de Recuperacion
 export function recuperacionTropas (jugador) {
 
-    let mensajeRecuperacion = `Tu compañia descansa: +70% vida a todos y habilidades especiales restauradas.`;
+    let mensajeRecuperacion = `Has pagado 1000 de oro por el descanso. Oro restante: ${jugador.getOroJugador}\n`;
+    mensajeRecuperacion += `Tu compañia descansa: +70% vida a todos y habilidades especiales restauradas.`;
+    jugador.setRestaOro = 1000;
 
     // Llamamos a la funcion para ver el estado antes de que se restauren.
     let resumenTropas = mostrarEstado (jugador);
