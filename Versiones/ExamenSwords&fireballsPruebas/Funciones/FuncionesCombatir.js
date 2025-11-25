@@ -267,4 +267,23 @@ function ataqueCPU (tropaCPU, tropaJugador, mensajeRespuesta, empieza) {
 if (Math.random() < 0.20) {
     tropaJugador.recibirDaño(10);
     tropaCPU.recibirDaño(10);
+
+    // sANGRADO
+    tropaJugador.estado = { tipo: "sangrado", turnos: 2 };
+
+    if (tropaJugador.estado?.tipo === "sangrado") {
+    tropaJugador.recibirDaño(5);
+    tropaJugador.estado.turnos--;
+
+    if (tropaJugador.estado.turnos <= 0) tropaJugador.estado = null;
+}
+
+if (jugador.inventario.pociones > 0) {
+    tropaJugador.curar(30);
+    jugador.inventario.pociones--;
+}
+
+jugador.inventario = { pociones: 2 };
+
+
 }*/
