@@ -10,7 +10,7 @@ export class Goblin extends TipoUnidad {
         // Sobreescribimos ataque
         this.ataque = Math.floor(Math.random() * (10 - 5 + 1)) + 5;
         this.atributoEspecial = "Preparar huida";
-        this.intentosHuir = 5;
+        this.intentosHuir = 2;
     }
 
     // Recibir Daño. Aplicando los intentos de huir.
@@ -24,6 +24,11 @@ export class Goblin extends TipoUnidad {
                 super.recibirDaño(dañoRival);
             }
         }      
+    }
+
+    recuperarse () {
+        super.recuperarse();
+        this.intentosHuir = 5; //Mejora, hizo falta el metodo recuperarse en el caso de que lo mataran antes de los 5 intentos de huida.
     }
 
 

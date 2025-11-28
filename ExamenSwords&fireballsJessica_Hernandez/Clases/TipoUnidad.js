@@ -59,24 +59,29 @@ export class TipoUnidad {
     // lo multiplicamos por 1.5 de daño.
     calcularDañoVentaja (dañoBase, nombreRival) {
 
+        let dañoFinal = dañoBase;
         if (this.ventajaTipo(nombreRival)) {
             dañoBase *= 1.5;
+            dañoFinal = Math.floor(dañoBase);
         } 
 
-        return dañoBase;
+        return dañoFinal;
     }
 
     calcularVentajaClima(daño, clima) {
 
+        let dañoFinal = daño;
         if(this.sistemaClima(clima)) {
             if(this.getNombre === "Mago") {
                 daño -= daño * 0.2; 
+                dañoFinal = Math.floor(daño);
             } else if (this.getNombre === "Guerrero") {
                 daño += daño * 0.2;
+                dañoFinal = Math.floor(daño);
             } 
         }
 
-        return daño;
+        return dañoFinal;
     }
 
     // Metodo recibirDaño, se pasara por parametro el daño que haga la unidad rival, asi, esa cantidad se quita de los puntos de vida.
