@@ -42,17 +42,18 @@ export function combatir (jugador) {
 
             //********* ATAQUE DEL JUGADOR **********//
             let mensajeClimaJugador = mensajeClimaVentaja(tropaJugador, climaTocado);
-            let dañoFinal = dañoRealizar(tropaJugador, tropaCPU,climaTocado);
+            let dañoFinal = dañoRealizar(tropaJugador, tropaCPU, climaTocado);
                 
             // Caso especial ladrón recibiendo daño del Rival
             /*************** MODIFICACION ****************/
             //Caso especial con Goblin.
-            let mensajeEsquivaCPU = realizarAtaque(tropaCPU, dañoFinal, false);
+            let mensajeEsquivaCPU = realizarAtaque(tropaCPU, dañoFinal, false); // FALSE para la computadora
             let huidaCPU = ``;
+
             // Verifico si es el Goblin
             if(tropaCPU.getNombre === "Goblin") {
                 if (tropaCPU.getNumHuidas == 0) {
-                    huidaCPU = `¡Goblin CPU huye como la sabandija que es!`;
+                    huidaCPU = `¡Goblin CPU huye como la sabandija que es!`; // No lo muestra porque nunca muestro este mensaje, tuve que concatenar esto a mensajeEsquivaCPU.
                     tropasEscapadas++;
                     tropaCPU.setKO = true;
                 }
@@ -74,7 +75,7 @@ export function combatir (jugador) {
                 let dañoFinalCPU = dañoRealizar(tropaCPU, tropaJugador,climaTocado);
 
                 // Caso especial ladrón recibiendo daño
-                let mensajeEsquivaJugador = realizarAtaque(tropaJugador, dañoFinalCPU , true); // Tru si es jugador para cambiar
+                let mensajeEsquivaJugador = realizarAtaque(tropaJugador, dañoFinalCPU , true); // True si es jugador para cambiar
 
                 //*************MODIFICACION************/
                 if (tropaJugador.getNombre === "Goblin" && tropaJugador.getNumHuidas === 0) {;
@@ -118,7 +119,7 @@ export function combatir (jugador) {
     let tropasTotales = tropasDerrotadasJugador - tropasEscapadas;
     let dineroGanado = tropasTotales * 500;
     if (tieneUnidadesConVida(jugador.getTropasJugador)) {
-        mensajeGanador = `¡Has ganado el combate! + ${dineroGanado} oro. (Unidades CPU derrotadas: ${tropasDerrotadasJugador})`;
+        mensajeGanador = `¡Has ganado el combate! + ${dineroGanado} oro. (Unidades CPU derrotadas: ${tropasTotales})`; // Aqui era tropa totales.
         jugador.setCambiaVictorias = 1;
     } else {
         mensajeGanador = `¡CPU ha ganado el combate! Mejor suerte la proxima.\nHas recibido ${dineroGanado} oro por las unidades derrotadas.\n`;

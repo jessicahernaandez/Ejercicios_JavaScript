@@ -239,3 +239,119 @@ export function combatir(jugador) {
         }
     }
 }
+
+// Ataques por unidades aleatorias en vez de la primera viva:
+let tropaJugador = jugador.getTropasJugador.filter(u => !u.getKO)[Math.floor(Math.random()*n)];
+
+
+/****************** FUNCIONES DEL COMBATE MEJORADAS ***********************/
+
+// Combate principal con mejoras
+export function combatir(jugador) {
+    let tropasCPU = generaTropasCPU();
+    muestraTropasCombatir(jugador, tropasCPU);
+
+    let tropasDerrotadasJugador = 0;
+
+    while (tieneUnidadesConVida(jugador.getTropasJugador) && tieneUnidadesConVida(tropasCPU)) {
+        // Selección de unidades activas
+        let tropaJugador = jugador.getTropasJugador.find(u => !u.getKO);
+        let tropaCPU = tropasCPU.find(u => !u.getKO);
+
+        let numTurnos = 1;
+        let turnoGanado = '';
+
+        while (!tropaJugador.getKO && !tropaCPU.getKO) {
+            let mensajeTurno = `TURNO ${numTurnos}\n`;
+
+            // Determinar orden de ataque aleatorio
+            let jugadorPrimero = Math.random() < 0.5;
+
+            if (jugadorPrimero) {
+                mensajeTurno += ejecutarTurno(tropaJugador, tropaCPU, 'Jugador');
+                if (!tropaCPU.getKO) mensajeTurno += ejecutarTurno(tropaCPU, tropaJugador, 'CPU');
+            } else {
+                mensajeTurno += ejecutarTurno(tropaCPU, tropaJugador, 'CPU');
+                if (!tropaJugador.getKO) mensajeTurno += ejecutarTurno(tropaJugador, tropaCPU, 'Jugador');
+            }
+
+            alert(mensajeTurno);
+
+            if (tropaCPU.getKO) {
+                turnoGanado = `Tu ${tropaJugador.getNombre}`;
+                tropasDerrotadasJugador++;
+            } else if (tropaJugador.getKO) {
+                turnoGanado = `CPU ${tropaCPU.getNombre}`;
+            }
+
+            numTurnos++;
+        }
+
+        let mensajeFinal = mensajeFinalTurno(tropaJugador, tropaCPU, turnoGanado);
+        alert(mensajeFinal);
+    }
+
+    // Mensaje final de combate
+    let mensajeGanador = '';
+    let dineroGanado = tropasDerrotadasJugador * 500;
+
+    if (tieneUnidadesConVida(jugador.getTropasJugador)) {
+        mensajeGanador = `¡Has ganado el combate! +${dineroGanado} oro. (Unidades CPU derrotadas: ${tropasDerrotadasJugador})`;
+        jugador.setCambiaVictorias = 1;
+    } else {
+        mensajeGanador = `¡CPU ha ganado el combate! Mejor suerte la próxima.\nHas recibido ${dineroGanado} oro por las unidades derrotadas.`;
+        jugador.setCambiaDerrotas = 1;
+    }
+
+    alert(mensajeGanador);
+    jugador.setSumaOro = dineroGanado;
+    jugador.setUsoRecuperacion = true;
+    jugador.restaurarIntentosContratacion = 6;
+}
+
+// Función que ejecuta un turno de ataque de una unidad sobre otra
+function ejecutarTurno(atacante, defensor, tipo) {
+    let mensaje = '';
+    
+    // Aplicar efectos de estado antes del ataque
+    if (defensor.estado === 'paralizado') {
+        mensaje += `${tipo === 'Jugador' ? 'Tu' : 'CPU'} ${defensor.getNombre} está paralizado y no puede atacar este turno.\n`;
+        defensor.estado = null; // Se quita paralizado después de un turno
+    }
+
+    // Determinar daño base
+    let daño = atacante.atacar();
+    
+    // Crítico aleatorio
+    if (Math.random() < 0.15) {
+        daño *= 1.5;
+        mensaje += `¡Crítico! `;
+    }
+
+    // Aplicar ventaja de tipo
+    daño = atacante.calcularDañoVentaja(daño, defensor.getNombre);
+
+    // Aplicar daño y verificar esquiva
+    let mensajeEsquiva = realizarAtaque(defensor, daño);
+
+    // Aplicar daño por estado envenenado
+    if (atacante.estado === 'envenenado') {
+        let dañoVeneno = 5;
+        defensor.recibirDaño(dañoVeneno);
+        mensaje += `${defensor.getNombre} recibe ${dañoVeneno} de daño por veneno. `;
+    }
+
+    // Mensajes de habilidades
+    let mensajeHabilidad = habilidadAtacarMensaje(atacante);
+
+    mensaje += `${tipo === 'Jugador' ? 'Tu' : 'CPU'} ${atacante.getNombre}${mensajeHabilidad} ataca ${defensor.getNombre}${mensajeEsquiva}: ${daño} daño -> ${defensor.getPuntosVida}/${defensor.getPuntosVidaMax} PVs\n`;
+
+    return mensaje;
+}
+
+// Función actualizar: agregar estado a una unidad
+export function aplicarEstado(tropa, estado) {
+    tropa.estado = estado; // 'envenenado', 'paralizado', etc.
+}
+
+// Mantiene resto de funciones: tieneUnidadesConVida, generaTropasCPU, muestraTropasCombatir, habilidadAtacarMensaje, dañoRealizar, realizarAtaque, mensajeFinalTurno

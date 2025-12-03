@@ -26,6 +26,10 @@ export class Goblin extends TipoUnidad {
         }      
     }
 
+    recuperarse() {
+        super.recuperarse();
+        this.intentosHuir = 5;
+    }
 
     get getNumHuidas () {
         return this.intentosHuir;
