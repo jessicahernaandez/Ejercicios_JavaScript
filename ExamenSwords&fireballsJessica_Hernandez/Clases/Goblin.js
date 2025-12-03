@@ -10,7 +10,7 @@ export class Goblin extends TipoUnidad {
         // Sobreescribimos ataque
         this.ataque = Math.floor(Math.random() * (10 - 5 + 1)) + 5;
         this.atributoEspecial = "Preparar huida";
-        this.intentosHuir = 5;
+        this.intentosHuir = 2;
     }
 
     // Recibir Daño. Aplicando los intentos de huir.

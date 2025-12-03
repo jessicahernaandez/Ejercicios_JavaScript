@@ -59,7 +59,7 @@
 
             case 3:
 
-                //Si el jugador tiene ejercito y al menos una unidad disponible con > O PVs 
+                // Si el jugador tiene ejercito y al menos una unidad disponible con > O PVs 
                 if(jugador.getTropasJugador.length != 0 && tieneUnidadesConVida(jugador.getTropasJugador)) {
                     combatir(jugador); // Se encuentra en el ficher "FuncionesCombatir.js"
                 } else {

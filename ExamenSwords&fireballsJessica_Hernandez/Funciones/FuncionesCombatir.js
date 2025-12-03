@@ -49,7 +49,7 @@ export function combatir (jugador) {
             //Caso especial con Goblin.
             let mensajeEsquivaCPU = realizarAtaque(tropaCPU, dañoFinal, false); // FALSE para la computadora
             let huidaCPU = ``;
-
+            
             // Verifico si es el Goblin
             if(tropaCPU.getNombre === "Goblin") {
                 if (tropaCPU.getNumHuidas == 0) {
@@ -130,12 +130,15 @@ export function combatir (jugador) {
 
     // Tengo que borrar el Goblin del jugador.
     let indiceBorrar = 0;
+    let tropaBorrada = [];
     for(let indice in jugador.getTropasJugador) {
         if(jugador.getTropasJugador[indice].getNombre === "Goblin" && jugador.getTropasJugador[indice].getNumHuidas === 0) {
             indiceBorrar = indice;
-            let tropaBorrada = jugador.getTropasJugador.splice(indiceBorrar, 1);
+            tropaBorrada = jugador.getTropasJugador.splice(indiceBorrar, 1);
         }
     }
+
+    alert(tropaBorrada);
     
 
     alert(mensajeGanador); 
