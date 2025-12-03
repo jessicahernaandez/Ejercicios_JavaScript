@@ -1,9 +1,4 @@
-    // Importaciones de las clases de Unidades.
-    import { Guerrero } from "../Clases/Guerrero.js";
-    import { Ladron } from "../Clases/Ladron.js";
-    import { Mago } from "../Clases/Mago.js";
-    import { Jugador } from "../Clases/Jugador.js";
-    import { esContratable, generarTropa} from "./FuncionesExtras.js";
+// Importaciones de las clases de Unidades.
 
 /****************** FUNCIONES DEL MENU PRINCIPAL ***********************/
 

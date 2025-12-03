@@ -49,6 +49,7 @@ export function combatir (jugador) {
             //Caso especial con Goblin.
             let mensajeEsquivaCPU = realizarAtaque(tropaCPU, dañoFinal, false);
             let huidaCPU = ``;
+            
             // Verifico si es el Goblin
             if(tropaCPU.getNombre === "Goblin") {
                 if (tropaCPU.getNumHuidas == 0) {
