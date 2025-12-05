@@ -1,33 +1,45 @@
-export class Superviviente {
+import { Combatientes } from "./Combatientes.js";
+
+export class Superviviente extends Combatientes {
 
     constructor() {
+        super(20,4); // Vida actual 20, puntos de ataque 4.
         this.vidaMaxima = 20;
-        this.vidaActual = 20;
-        this.puntosAtaque = 4;
-        this.tieneBotiquin = true;
+        this.tieneBotiquin = false;
         this.cantidadArmas = 0;
         this.cantidadProtecciones = 0;
     }
 
+    // Sobreescribe el metodo de recibirDanio, porque dependiendo de si tiene protecciones o no, se maneja diferente.
     recibirDanio(danio) {
         let danioReal = danio - this.cantidadProtecciones; // Si no tiene da 0, asi que no afecta al daño.
+
+        if(this.cantidadProtecciones > danio) { // REVISAR
+            this.cantidadProtecciones -= danio; // Por ejemplo, si tengo 5 protecciones y me han hecho 4 de daño, solo restare las 4 pociones que ocupare para prevenir el daño.
+        } else {
+            this.cantidadProtecciones = 0;
+        }
 
         if (danioReal < 0) {
             danioReal = 0;
         }
-        this.vidaActual -= danioReal; // Si tiene protecciones ya ha sido aplicado antes, y asi si se aplica el daño al jugador.
         
-        if (this.vidaActual < 0) {
-            this.vidaActual = 0;
-        }
+        // Si tiene protecciones ya ha sido aplicado antes, y asi si se aplica el daño al jugador.
+        // Y asi, llamamos al metodo de la clase padre.
+        super.recibirDanio(danioReal);
 
-        return danioReal;
     }
 
+    // Sobreescribe el metodo atacar para añadir las armas.
     atacar() {
         // El superviviente ataca con un dado.
-        let danio = this.lanzarDado(this.puntosAtaque); // Las caras el igual a su atributo de puntos de Ataque.
+        let danio = super.atacar(); // Las caras el igual a su atributo de puntos de Ataque.
         danio += this.cantidadArmas; // Si tiene armas se le suma al daño, no al valor del dado.
+
+        if(this.cantidadArmas > 0) {
+            this.cantidadArmas = 0;
+        }
+        
         return danio;
     }
 
@@ -55,27 +67,14 @@ export class Superviviente {
         this.cantidadProtecciones++;
     }
 
-    // El metodo que ocupa el superviviente para lanzar el dado a la hora de atacar.
-    lanzarDado(caras) {
-        return Math.floor(Math.random() * caras) + 1;
-    }
-
-    mostrarEstado() {
-        return `** PV: ${this.vidaActual} #MAX(${this.vidaMaxima}); ARMAS: ${this.cantidadArmas}; PROTECCIÓN: ${this.cantidadProtecciones}`;
+    toString() {
+        return `Puntos de vida: ${this.vidaActual}/${this.vidaMaxima}\nArmas: ${this.cantidadArmas}\nProtección: ${this.cantidadProtecciones}\nBotiquin disponible: ${(this.getTieneBotiquin ? "Si" : "No")}\nPuntos de Ataque: ${this.getPuntosAtaque}`;
     }
 
 
     /* GETTERS */
     get getVidaMaxima() {
         return this.vidaMaxima;
-    }
-
-    get getVidaActual() {
-        return this.vidaActual;
-    }
-
-    get getPuntosAtaque() {
-        return this.puntosAtaque;
     }
 
     get getTieneBotiquin() {
@@ -90,8 +89,8 @@ export class Superviviente {
         return this.cantidadProtecciones;
     }
 
-    get estaVivo() {
-        $vivo = this.vidaActual > 0 ? true : false;
-        return $vivo;
+    /* SETTERS */
+    set setCambiaBotiquin (valor) {
+        this.tieneBotiquin = valor;
     }
 }
