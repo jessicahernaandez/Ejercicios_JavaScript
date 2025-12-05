@@ -26,11 +26,10 @@ export class Goblin extends TipoUnidad {
         }      
     }
 
-    recuperarse () {
+    recuperarse() {
         super.recuperarse();
-        this.intentosHuir = 5; //Mejora, hizo falta el metodo recuperarse en el caso de que lo mataran antes de los 5 intentos de huida.
+        this.intentosHuir = 5;
     }
-
 
     get getNumHuidas () {
         return this.intentosHuir;

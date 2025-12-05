@@ -29,6 +29,8 @@ export class Ladron extends TipoUnidad {
         }  
     }
 
+    //Hacer una sobrecarga del metodo recibirDaño, con el parametro del clima.
+
     //Sobreescribo el metodo recuperarse, para que ademas pueda reeestablecer sus esquivas.
     recuperarse() {
         super.recuperarse();
