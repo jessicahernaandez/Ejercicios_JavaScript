@@ -16,9 +16,7 @@ export class Superviviente extends Combatientes {
 
         if(this.cantidadProtecciones > danio) { // REVISAR
             this.cantidadProtecciones -= danio; // Por ejemplo, si tengo 5 protecciones y me han hecho 4 de daño, solo restare las 4 pociones que ocupare para prevenir el daño.
-        } else {
-            this.cantidadProtecciones = 0;
-        }
+        } 
 
         if (danioReal < 0) {
             danioReal = 0;
@@ -35,10 +33,6 @@ export class Superviviente extends Combatientes {
         // El superviviente ataca con un dado.
         let danio = super.atacar(); // Las caras el igual a su atributo de puntos de Ataque.
         danio += this.cantidadArmas; // Si tiene armas se le suma al daño, no al valor del dado.
-
-        if(this.cantidadArmas > 0) {
-            this.cantidadArmas = 0;
-        }
         
         return danio;
     }
@@ -70,7 +64,6 @@ export class Superviviente extends Combatientes {
     toString() {
         return `Puntos de vida: ${this.vidaActual}/${this.vidaMaxima}\nArmas: ${this.cantidadArmas}\nProtección: ${this.cantidadProtecciones}\nBotiquin disponible: ${(this.getTieneBotiquin ? "Si" : "No")}\nPuntos de Ataque: ${this.getPuntosAtaque}`;
     }
-
 
     /* GETTERS */
     get getVidaMaxima() {

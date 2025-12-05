@@ -32,12 +32,9 @@ export class Mansion {
     // Metodo principal, es quien se encarga de ejecutar toda la logica del juego.
     iniciarJuego() {
 
-        // Mostramos el string del objeto. // PRUEBA
-        alert(this.toString());
-
         let respuestaElegida = ``;
         // Llamamos al menu donde pasamos la accion elegida y se ejecuta.
-        while(this.superviviente.estaVivo() && respuestaElegida != "salirMansion") {
+        while(this.superviviente.estaVivo() && (respuestaElegida != "salirMansion" && respuestaElegida != "salirJuego")) {
             // Llamada al metodo que muestra el mensaje y devuelve un array con las opciones disponible y el mensaje.
             let arrMensajeOpciones = this.mensajeMenu();
 
@@ -79,7 +76,7 @@ export class Mansion {
             mensajeMenu += `${opcionNum}) Avanzar a otra habitación.\n`;
             opcionesDisponibles.push("avanzar");
             opcionNum++;
-        } else if (this.numZombies == 0 && this.numHabitacionMax == this.numHabitacionMax) { // Si esta en la última habitacion, mostrara salir.
+        } else if (this.numZombies == 0 && this.habitacionActual == this.numHabitacionMax) { // Si esta en la última habitacion, mostrara salir.
             mensajeMenu += `${opcionNum}) Salir de la mansión (No hay mas habitaciones por ver)\n`;
             opcionesDisponibles.push("salirMansion");
             opcionNum++;
@@ -92,9 +89,12 @@ export class Mansion {
             opcionNum++;
         }
 
-        // La opcion de ver estado siempre saldra.
+        // La opcion de ver estado y salir siempre estarán disponibles.
         mensajeMenu += `${opcionNum}) Ver estado.\n`;
         opcionesDisponibles.push("verEstado");
+        opcionNum++;
+        mensajeMenu += `${opcionNum}) Salir del juego.`;
+        opcionesDisponibles.push("salirJuego");
         
         return [mensajeMenu, opcionesDisponibles]; // Devuelvo directamente el array.
     }
@@ -157,8 +157,13 @@ export class Mansion {
                     alert(`No tienes botiquin, no puedes curarte.`);
                 }
                 break;
+
             case "verEstado":
                 alert(`Estado de la Mansión:\n${this.toString()}\n\nTu Estado:\n${this.superviviente.toString()}`);
+                break;
+
+            case "salirJuego":
+                alert(`¡Hasta luego!`);
                 break;
         }
     }
@@ -242,10 +247,10 @@ export class Mansion {
         if(resultadoRuido <= 40) {
             mensajeRuido += `...Por suerte nadie te ha escuchado al otro lado esta vez.`;
         } else if (resultadoRuido >= 41 && resultadoRuido <= 80) {
-            mensajeRuido += `...Te has encontrado a un zombie ¡Combate!`; // Nose si se tiene que ejecutar aqui mismo el combate.
+            mensajeRuido += `...Te has encontrado a un zombie.`; 
             this.numZombies += 1;
         } else {
-            mensajeRuido += `... Te has encontrado a 2 zombies ¡Combate!`;
+            mensajeRuido += `... Te has encontrado a 2 zombies.`;
             this.numZombies += 2;
         }
             
